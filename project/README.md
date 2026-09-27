@@ -15,3 +15,41 @@ The record of meow.review.nvim: its vision, specifications, epics and defects. R
 | [SPC-0050](specs/SPC-0050-signs-and-staleness.md) | Signs, position tracking and stale detection | live |
 | [SPC-0060](specs/SPC-0060-context-capture.md) | Context capture | live |
 <!-- /meow-flow index -->
+
+## Defects
+
+Written by hand from `paw index defect`, because `paw index --write` writes every kind into the one generated block above (BUG-0180).
+
+
+| Identifier | What it concluded | Status |
+| --- | --- | --- |
+| [BUG-0010](bugs/BUG-0010-missing-cited-issues.md) | Commits cite issues #1 to #14 that don't exist in this repository | draft |
+| [BUG-0020](bugs/BUG-0020-vision-no-alternative.md) | The vision doesn't say what the plugin replaces or competes with | draft |
+| [BUG-0030](bugs/BUG-0030-vision-no-current-practice.md) | The vision doesn't say what reviewers do today without the plugin | draft |
+| [BUG-0040](bugs/BUG-0040-no-quality-goals.md) | No quality goals are stated | draft |
+| [BUG-0050](bugs/BUG-0050-no-non-goals.md) | No non-goals are stated | draft |
+| [BUG-0060](bugs/BUG-0060-module-dependencies-unstated.md) | The permitted dependencies between modules are unstated, and the store and signs call each other | draft |
+| [BUG-0070](bugs/BUG-0070-vimdoc-export-filename-default.md) | doc/meow-review.txt gives the wrong default for `export_filename` | draft |
+| [BUG-0080](bugs/BUG-0080-old-store-name-in-docs.md) | Documentation and comments still name the old store file `.meow-review.json` | draft |
+| [BUG-0090](bugs/BUG-0090-export-and-clear-loses-annotations.md) | `export_and_clear` clears the store when the export wrote nothing | draft |
+| [BUG-0100](bugs/BUG-0100-export-and-clear-drops-resolved.md) | `export_and_clear` clears resolved annotations that the export left out | draft |
+| [BUG-0110](bugs/BUG-0110-unreadable-store-overwritten.md) | A store file that can't be read is overwritten by the next change | draft |
+| [BUG-0120](bugs/BUG-0120-own-store-committed.md) | The plugin's own review store is committed to the repository | draft |
+| [BUG-0130](bugs/BUG-0130-store-move-reason-unrecorded.md) | The move of the store to `.cache/meow-review/` has no recorded reason | draft |
+| [BUG-0140](bugs/BUG-0140-ci-setup-vim-reason-unrecorded.md) | Replacing and restoring `rhysd/action-setup-vim` in CI has no recorded reason | draft |
+| [BUG-0150](bugs/BUG-0150-picker-order-reason-unrecorded.md) | The picker fallback order has no recorded reason | draft |
+| [BUG-0160](bugs/BUG-0160-licence-year.md) | The licence headers say 2025 while the project began in 2026 | draft |
+| [BUG-0170](bugs/BUG-0170-missing-v0-1-0-tag.md) | The 0.1.0 rockspec names a tag that doesn't exist | draft |
+| [BUG-0180](bugs/BUG-0180-paw-shared-index-block.md) | `paw index` writes every kind into the one index block of `project/README.md` | draft |
+| [BUG-0190](bugs/BUG-0190-requirements-without-reasons.md) | No requirement states its reason | draft |
+| [BUG-0200](bugs/BUG-0200-false-stale-after-edits.md) | Lines added above an annotation can mark it stale although its text is unchanged | draft |
+| [BUG-0210](bugs/BUG-0210-repeat-setup-merge.md) | A second `setup()` call doesn't give the state one merged call would | draft |
+| [BUG-0220](bugs/BUG-0220-restart-kind-unstated.md) | REQ-0200 doesn't say whether a killed Neovim counts as a restart | draft |
+| [BUG-0230](bugs/BUG-0230-gitignore-prompt-repeats.md) | `auto_gitignore = "prompt"` asks again after every write | draft |
+| [BUG-0240](bugs/BUG-0240-export-cannot-include-resolved.md) | Export can't include resolved annotations although the docs say they are left out only by default | draft |
+| [BUG-0250](bugs/BUG-0250-heading-grammar-unstated.md) | REQ-0302 doesn't state the exact heading grammar it promises | draft |
+| [BUG-0260](bugs/BUG-0260-stale-check-narrower-than-documented.md) | `validate()` checks less than the help file promises | draft |
+| [BUG-0270](bugs/BUG-0270-store-write-not-atomic.md) | A failed store write leaves the file empty or partial and reports nothing | draft |
+| [BUG-0280](bugs/BUG-0280-resolve-without-picker.md) | Resolve acts on the first annotation on the line without a picker | draft |
+| [BUG-0290](bugs/BUG-0290-context-capture-no-requirement.md) | Context capture rests on no requirement | draft |
+| [BUG-0300](bugs/BUG-0300-vision-no-direction.md) | The vision doesn't say where the plugin is going | draft |
