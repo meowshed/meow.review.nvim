@@ -3,7 +3,7 @@ id: REQ-0604
 artifact: requirement
 topic: release
 class: functional
-status: draft
+status: approved
 revised: 2026-09-27
 elaborates: RES-0010
 verification: static
