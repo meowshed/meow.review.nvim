@@ -1,0 +1,25 @@
+name: Release
+
+# Publishes each vX.Y.Z tag to luarocks.org (ADR-0010). `check` also runs on
+# every pull request, so a rockspec change that drops plugin/ fails before it
+# is merged.
+on:
+  pull_request:
+    branches: [main]
+  push:
+    tags: ["v*"]
+
+jobs:
+  check:
+    name: Check the rock
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install LuaRocks
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y luarocks
+
+      - name: Check the installed rock ships plugin/meow-review.lua
+        run: scripts/check-rock.sh
