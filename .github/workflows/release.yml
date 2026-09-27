@@ -28,3 +28,21 @@ jobs:
       - name: Refuse a version already on luarocks.org
         if: startsWith(github.ref, 'refs/tags/v')
         run: scripts/check-unpublished.sh "${GITHUB_REF_NAME#v}"
+
+  publish:
+    name: Publish to luarocks.org
+    needs: check
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Pinned to a commit, because a tag can be moved and a commit can't
+      # (ADR-0010); Dependabot proposes moving the pin.
+      - name: Publish the rock
+        uses: lumen-oss/luarocks-tag-release@4aa641e8e4befe0617fa3d7db40dbda832ddd27b # v7.3.0
+        env:
+          LUAROCKS_API_KEY: ${{ secrets.LUAROCKS_API_KEY }}
+        with:
+          template: meow.review.nvim-scm-1.rockspec
+          fail_on_duplicate: true

@@ -1,0 +1,9 @@
+# Proposes updates to the actions the workflows use, including the
+# commit-pinned luarocks-tag-release in release.yml (ADR-0010). Weekly,
+# because the pin moves rarely and a daily prompt would be noise.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

@@ -54,12 +54,15 @@ Check a message with `meow-scm check-message` before you use it, because every
 commit in the history passes that check.
 </principle>
 
-<principle name="changelog_and_rockspec_per_release">
+<principle name="changelog_and_tag_per_release">
 Record each user-visible change under `## [Unreleased]` in `CHANGELOG.md`,
 which follows Keep a Changelog and Semantic Versioning. A release is one
-`release: vX.Y.Z` commit that dates the changelog section and adds
-`meow.review.nvim-X.Y.Z-1.rockspec` with the tag `vX.Y.Z`, because rocks.nvim
-users install from that rockspec.
+`release: vX.Y.Z` commit that dates the changelog section, and a pushed tag
+`vX.Y.Z` on it; `.github/workflows/release.yml` then publishes it to
+luarocks.org from `meow.review.nvim-scm-1.rockspec`, and no versioned rockspec
+is committed (ADR-0010). Because the published version can't be replaced, a
+fix after publishing ships as a new patch version, and the tag goes on the
+merged release commit on `main` only.
 </principle>
 
 </principles>
