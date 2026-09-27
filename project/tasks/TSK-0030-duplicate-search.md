@@ -41,7 +41,31 @@ TSK-0020, because the search is a step of the `check` job.
 
 ## Evidence
 
-Not yet.
+Collected at commit `1fef804`, tree `052c2e85126a`.
+
+- Seen failing first: `luarocks search meow.review.nvim 0.2.1` exits 0 with
+  `0.2.1-1` listed, and exits 0 with nothing listed for `9.9.9`, so a check
+  on the exit status would let a published version through; against an
+  unreachable server it also exits 0, printing only `Warning: Failed
+  searching manifest` on stderr.
+- Criterion 1 (REQ-0605): `scripts/check-unpublished.sh 0.2.1` exited 1 with
+  "check-unpublished: meow.review.nvim 0.2.1 is already on
+  https://luarocks.org as 0.2.1-1".
+- Criterion 2: `scripts/check-unpublished.sh 9.9.9` exited 0 with "no
+  revision of meow.review.nvim 9.9.9 is on https://luarocks.org". `0.2` and
+  `10.2.1` also exited 0, so neither matched `0.2.1-1`.
+- Criterion 4: networking off was simulated with an unreachable server,
+  `LUAROCKS_SERVER=https://nonexistent.invalid scripts/check-unpublished.sh
+  0.2.2`, which exited 1 with "the search couldn't reach
+  https://nonexistent.invalid" and the LuaRocks warning.
+- Criteria 3 and 5: not yet; they need the `v0.2.2` run in TSK-0050.
+- `shellcheck` 0.11.0 on both scripts exited 0.
+- `meow-verbs evidence format lint check test build`, exit 0:
+  format passed, record fa0eafcef1a8, current at tree 052c2e85126a;
+  lint passed, record 5cb9f1b50ea2, current at tree 052c2e85126a;
+  check passed, record 36b1bfb9816a, current at tree 052c2e85126a;
+  test passed, record d9b00fa21b6d, current at tree 052c2e85126a;
+  build passed, record e66b8a853696, current at tree 052c2e85126a.
 
 ## Left alone
 

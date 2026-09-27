@@ -51,8 +51,9 @@ knows which can run at once without conflicting edits.
       closes: REQ-0601
       evidence: `7b07bc7`; `check` failed on throwaway PR #3 and passed on PR #2; its criterion 3 moved to TSK-0050, with the maintainer's approval, to break a dependency cycle
       depends: TSK-0010 - the check builds the template this task adds
-- [ ] T-003 TSK-0030 Refuse a version already on luarocks.org in `check`
+- [>] T-003 TSK-0030 Refuse a version already on luarocks.org in `check`
       closes: REQ-0605
+      evidence: `1fef804`; the script refuses 0.2.1, passes 9.9.9 and fails closed offline; criteria 3 and 5 wait for TSK-0050
       depends: TSK-0020 - the search is a step of the `check` job
 - [ ] T-004 TSK-0040 Add the `publish` job, Dependabot and the new release principle
       closes: REQ-0604
