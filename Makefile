@@ -11,8 +11,8 @@ NLUA      ?= $(HOME)/.luarocks/bin/nlua
 LUALS     ?= lua-language-server
 LUAROCKS  ?= luarocks
 
-# The newest rockspec in the root, which is the release being prepared
-ROCKSPEC  := $(shell ls meow.review.nvim-*.rockspec | sort -V | tail -n 1)
+# The scm rockspec, which is also the template every release is published from
+ROCKSPEC  := meow.review.nvim-scm-1.rockspec
 
 LUA_FILES := lua/**/*.lua lua/**/**/*.lua plugin/*.lua tests/**/*.lua scripts/*.lua
 
@@ -52,7 +52,7 @@ check:
 		$(LUALS) --check="$$dir" --checklevel=Warning --configpath="$(CURDIR)/.luarc.json" || exit 1; \
 	done
 
-## Build and install the newest rockspec into build/ (no network: dependencies are skipped)
+## Build and install the scm rockspec into build/ (no network: dependencies are skipped)
 build:
 	$(LUAROCKS) --lua-version 5.1 make --deps-mode none --tree build/ $(ROCKSPEC)
 

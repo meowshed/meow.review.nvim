@@ -75,8 +75,9 @@ and each job runs one `make` target that you can run locally too:
   fails on any file stylua would change.
 - `make check` runs lua-language-server on `lua/`, `plugin/`, `tests/` and
   `scripts/` against Neovim's runtime, and fails on any diagnostic at warning level or above.
-- `make build` builds the newest rockspec into `build/`, and fails if
-  LuaRocks can't install it.
+- `make build` builds `meow.review.nvim-scm-1.rockspec`, the template every
+  release is published from, into `build/`, and fails if LuaRocks can't
+  install it.
 
 `make deps` installs busted and nlua into `~/.luarocks` for Lua 5.1, and the
 test runner clones `nui.nvim` into `deps/` on first run.

@@ -115,5 +115,5 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y luarocks
 
-      - name: Build the newest rockspec
+      - name: Build the scm rockspec
         run: make build
