@@ -6,8 +6,8 @@
 
 ![Neovim](https://img.shields.io/badge/neovim-%23019733.svg?style=for-the-badge&logo=neovim&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge)
-![GitHub stars](https://img.shields.io/github/stars/retran/meow.review.nvim?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/retran/meow.review.nvim?style=for-the-badge)
+![GitHub stars](https://img.shields.io/github/stars/meowshed/meow.review.nvim?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/meowshed/meow.review.nvim?style=for-the-badge)
 
 </div>
 
@@ -83,7 +83,7 @@ Install `meow.review.nvim` using your favourite plugin manager.
 
 ```lua
 {
-    "retran/meow.review.nvim",
+    "meowshed/meow.review.nvim",
     dependencies = { "MunifTanjim/nui.nvim" },
     event = "VeryLazy",
     config = function()
@@ -116,7 +116,7 @@ Install `meow.review.nvim` using your favourite plugin manager.
 
 ```lua
 use {
-    "retran/meow.review.nvim",
+    "meowshed/meow.review.nvim",
     requires = { "MunifTanjim/nui.nvim" },
     config = function()
         require("meow.review").setup({})
@@ -481,8 +481,8 @@ Licensed under the MIT License. See [`LICENSE`](LICENSE) for details.
 
 Made with ❤️ by Andrew Vasilyev with help from GitHub Copilot and OpenCode, and feline assistants Sonya Blade, Mila, and Marcus Fenix.
 
-[Report Bug](https://github.com/retran/meow.review.nvim/issues) ·
-[Request Feature](https://github.com/retran/meow.review.nvim/issues) ·
-[Contribute](https://github.com/retran/meow.review.nvim/pulls)
+[Report Bug](https://github.com/meowshed/meow.review.nvim/issues) ·
+[Request Feature](https://github.com/meowshed/meow.review.nvim/issues) ·
+[Contribute](https://github.com/meowshed/meow.review.nvim/pulls)
 
 </div>

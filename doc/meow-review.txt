@@ -96,7 +96,7 @@ INSTALLATION					*meow-review-installation*
 lazy.nvim:
 >
 	{
-	    "retran/meow.review.nvim",
+	    "meowshed/meow.review.nvim",
 	    dependencies = { "MunifTanjim/nui.nvim" },
 	    event = "VeryLazy",
 	    config = function()
@@ -128,7 +128,7 @@ lazy.nvim:
 packer.nvim:
 >
 	use {
-	    "retran/meow.review.nvim",
+	    "meowshed/meow.review.nvim",
 	    requires = { "MunifTanjim/nui.nvim" },
 	    config = function()
 	        require("meow.review").setup({})
@@ -716,7 +716,7 @@ The health check reports:
 CONTRIBUTING					*meow-review-contributing*
 
 Open an issue or submit a pull request at:
-https://github.com/retran/meow.review.nvim
+https://github.com/meowshed/meow.review.nvim
 
 Code style:
 - `.stylua.toml`: 4-space indent, 120-column, AutoPreferDouble quotes
