@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-09-28
+
+### Fixed
+
+- The LuaRocks rock now installs `plugin/` and `doc/`, so rocks.nvim users
+  get the `:MeowReview` command and the `<Plug>` mappings. Earlier rocks
+  installed only the Lua modules (BUG-0310).
+- Entering a buffer no longer raises "Invalid buffer id" when the buffer was
+  wiped before the delayed sign redraw ran.
+- The Neovim version and nui.nvim checks report through `vim.notify` in place
+  of the deprecated `nvim_err_writeln`, and hunk detection uses
+  `vim.text.diff` on Neovim 0.12, falling back to `vim.diff` on 0.11.
+
+### Changed
+
+- Releases are published to luarocks.org by CI when a `vX.Y.Z` tag is
+  pushed, from `meow.review.nvim-scm-1.rockspec`.
+
 ## [0.2.1] - 2026-04-22
 
 ### Fixed
@@ -78,7 +96,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial release.
 
-[Unreleased]: https://github.com/meowshed/meow.review.nvim/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/meowshed/meow.review.nvim/compare/v0.2.2...HEAD
+[0.2.2]: https://github.com/meowshed/meow.review.nvim/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/meowshed/meow.review.nvim/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/meowshed/meow.review.nvim/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/meowshed/meow.review.nvim/releases/tag/v0.1.0
