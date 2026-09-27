@@ -27,6 +27,9 @@
 --
 -- Run with: make test
 
+-- The specs replace vim.notify, vim.ui.select and API functions with stubs.
+---@diagnostic disable: duplicate-set-field
+
 local assert = require("luassert")
 
 describe("meow.review.init", function()

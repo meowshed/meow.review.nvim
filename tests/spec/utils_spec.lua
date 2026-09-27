@@ -79,7 +79,7 @@ describe("meow.review.utils", function()
         it("does not error when parent directory already exists", function()
             vim.fn.mkdir(tmp_root, "p")
             local path = tmp_root .. "/file.json"
-            assert.has_no.errors(function()
+            assert.has_no.error(function()
                 utils.ensure_parent_dirs(path)
             end)
         end)

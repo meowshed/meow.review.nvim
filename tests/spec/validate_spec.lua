@@ -67,6 +67,9 @@ describe("meow.review.validate", function()
             vim.fn.mkdir(parent, "p")
         end
         local f = io.open(abs, "w")
+        if not f then
+            error("cannot open " .. abs)
+        end
         f:write(table.concat(lines, "\n") .. "\n")
         f:close()
     end

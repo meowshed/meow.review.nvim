@@ -45,10 +45,10 @@ format:
 format-check:
 	$(STYLUA) --check lua/ plugin/ tests/ scripts/
 
-## Type-check lua/ and plugin/ with lua-language-server against Neovim's runtime
+## Type-check every Lua directory with lua-language-server against Neovim's runtime
 check:
 	@export VIMRUNTIME="$$($(NVIM) --clean --headless +'lua io.write(vim.env.VIMRUNTIME)' +q 2>&1)"; \
-	for dir in lua plugin; do \
+	for dir in lua plugin tests scripts; do \
 		$(LUALS) --check="$$dir" --checklevel=Warning --configpath="$(CURDIR)/.luarc.json" || exit 1; \
 	done
 

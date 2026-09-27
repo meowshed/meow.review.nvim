@@ -27,6 +27,9 @@
 --
 -- Run with: make test
 
+-- The specs replace vim.notify, vim.ui.select and API functions with stubs.
+---@diagnostic disable: duplicate-set-field
+
 local assert = require("luassert")
 
 describe("meow.review.export", function()
@@ -78,7 +81,7 @@ describe("meow.review.export", function()
             export.unregister_formatter("to_remove")
             local list = export.list_formatters()
             for _, n in ipairs(list) do
-                assert.not_equal("to_remove", n)
+                assert.are_not_equal("to_remove", n)
             end
         end)
 
@@ -312,7 +315,7 @@ describe("meow.review.export", function()
             export.setup_builtins({ disabled_exporters = {} })
             local list = export.list()
             for _, n in ipairs(list) do
-                assert.not_equal("avante", n)
+                assert.are_not_equal("avante", n)
             end
         end)
 
@@ -337,7 +340,7 @@ describe("meow.review.export", function()
             export.setup_builtins({ disabled_exporters = {} })
             local list = export.list()
             for _, n in ipairs(list) do
-                assert.not_equal("codecompanion", n)
+                assert.are_not_equal("codecompanion", n)
             end
         end)
 

@@ -73,8 +73,8 @@ and each job runs one `make` target that you can run locally too:
 - `make lint` runs luacheck and fails on any warning.
 - `stylua --check lua/ plugin/ tests/ scripts/` (`make format-check` locally)
   fails on any file stylua would change.
-- `make check` runs lua-language-server on `lua/` and `plugin/` against
-  Neovim's runtime, and fails on any diagnostic at warning level or above.
+- `make check` runs lua-language-server on `lua/`, `plugin/`, `tests/` and
+  `scripts/` against Neovim's runtime, and fails on any diagnostic at warning level or above.
 - `make build` builds the newest rockspec into `build/`, and fails if
   LuaRocks can't install it.
 

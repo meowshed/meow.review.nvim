@@ -258,6 +258,9 @@ describe("meow.review.store", function()
 
             -- Simulate what save() does after writing
             local f = io.open(store_path, "w")
+            if not f then
+                error("cannot open " .. store_path)
+            end
             f:write("{}")
             f:close()
 
