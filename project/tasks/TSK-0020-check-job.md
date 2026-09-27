@@ -18,7 +18,7 @@ A new workflow builds the rock from the scm rockspec at the commit under test an
 
 1. Given a pull request that removes `plugin` from `copy_directories`, when the workflow runs, then `check` fails and names the missing file. Closed by: the failed run on a throwaway pull request, linked in the evidence.
 2. Given the scm rockspec from TSK-0010, when `check` runs on a pull request, then it passes. Closed by: the passing run on this task's pull request.
-3. Given a pushed `v*` tag, when the workflow runs, then `check` runs at the tagged commit and `publish` starts only after `check` succeeded. Closed by: `needs: check` in `release.yml`, which TSK-0040 writes, and the `v0.2.2` run in TSK-0050; this task stays `[>]` after merge until that run, and is marked done in TSK-0050's commit.
+3. Moved to TSK-0050 criterion 7 on 2026-09-27, with the maintainer's approval: kept here, it made TSK-0020 wait on TSK-0050, which depends on TSK-0020 through TSK-0030, so neither could start.
 
 ## What to do
 
@@ -49,8 +49,7 @@ Collected at commit `7b07bc7`, tree `d81613dc3c06`.
   The pull request was closed unmerged.
 - Criterion 2: this task's pull request #2 passed the `check` job:
   https://github.com/meowshed/meow.review.nvim/actions/runs/36356646458/job/108725592305.
-- Criterion 3: not yet; it needs `needs: check` from TSK-0040 and the
-  `v0.2.2` run in TSK-0050.
+- Criterion 3: moved to TSK-0050 criterion 7.
 - `meow-verbs evidence format lint check test build`, exit 0:
   format passed, record 5464b1b69c8f, current at tree d81613dc3c06;
   lint passed, record df9ae67c85aa, current at tree d81613dc3c06;

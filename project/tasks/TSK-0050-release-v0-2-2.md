@@ -22,6 +22,7 @@ The first release under ADR-0010 is published by pushing `v0.2.2`, which puts a 
 4. Given `v0.2.2` published, when the workflow is re-run for it, then `check` fails at the duplicate search and the published rockspec is unchanged. Closed by: the re-run's failed status and the rockspec's `sha256sum` before and after it.
 5. Given the key created, when the maintainer runs `git grep -cF -- "$KEY" $(git rev-list --all)` in a clean clone, then it finds nothing in any revision. Closed by: the command's exit status 1, recorded without the key.
 6. Given the `v0.2.2` run, when BUG-0310 is read, then its `## Closed by` holds criterion 2's commands and output. Closed by: the diff to BUG-0310.
+7. Given `v0.2.2` pushed, when `release.yml` runs, then `check` runs at the tagged commit and `publish` starts only after `check` succeeded (REQ-0601). Closed by: `needs: check` in `release.yml` and the run's job timings. Moved here from TSK-0020 criterion 3 on 2026-09-27, with the maintainer's approval.
 
 ## What to do
 

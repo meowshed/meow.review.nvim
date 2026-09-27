@@ -47,9 +47,9 @@ knows which can run at once without conflicting edits.
 - [x] T-001 TSK-0010 Add `meow.review.nvim-scm-1.rockspec` and build it with `make build`
       closes: REQ-0600
       evidence: `c578038`, `make build` installs `scm-1/plugin/meow-review.lua`; verbs passed at tree b5d327573a9f
-- [>] T-002 TSK-0020 Add the `check` job in `.github/workflows/release.yml`
+- [x] T-002 TSK-0020 Add the `check` job in `.github/workflows/release.yml`
       closes: REQ-0601
-      evidence: `7b07bc7`; `check` failed on throwaway PR #3 and passed on PR #2; criterion 3 waits for TSK-0050
+      evidence: `7b07bc7`; `check` failed on throwaway PR #3 and passed on PR #2; its criterion 3 moved to TSK-0050, with the maintainer's approval, to break a dependency cycle
       depends: TSK-0010 - the check builds the template this task adds
 - [ ] T-003 TSK-0030 Refuse a version already on luarocks.org in `check`
       closes: REQ-0605
