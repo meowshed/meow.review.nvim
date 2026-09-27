@@ -64,4 +64,18 @@ fix.
 
 ## Closed by
 
-Not closed.
+Closed for new installs by `meow.review.nvim 0.2.2-1`, published on
+2026-09-28 by `release.yml` from `meow.review.nvim-scm-1.rockspec`
+(ADR-0010, EPC-0010, run https://github.com/meowshed/meow.review.nvim/actions/runs/36359482130). The reproduction, run against it:
+
+```text
+tree=$(mktemp -d)
+luarocks --lua-version 5.1 install --tree "$tree" --deps-mode none meow.review.nvim 0.2.2-1
+find "$tree" -name meow-review.lua
+…/lib/luarocks/rocks-5.1/meow.review.nvim/0.2.2-1/plugin/meow-review.lua
+```
+
+The regression check is `scripts/check-rock.sh`, run by the `check` job of
+`release.yml` on every pull request and tag (REQ-0601). Versions 0.1.0 to
+0.2.1 on luarocks.org stay without `plugin/`, because REQ-0605 forbids
+replacing them.

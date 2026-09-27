@@ -58,7 +58,10 @@ Collected at commit `1fef804`, tree `052c2e85126a`.
   `LUAROCKS_SERVER=https://nonexistent.invalid scripts/check-unpublished.sh
   0.2.2`, which exited 1 with "the search couldn't reach
   https://nonexistent.invalid" and the LuaRocks warning.
-- Criteria 3 and 5: moved to TSK-0050.
+- Criteria 3 and 5: moved to TSK-0050. On `v0.2.2` the step logged "no revision
+  of meow.review.nvim 0.2.2 is on https://luarocks.org" in the first run and
+  "meow.review.nvim 0.2.2 is already on https://luarocks.org as 0.2.2-1" in
+  the re-run, which failed (https://github.com/meowshed/meow.review.nvim/actions/runs/36359482130).
 - `shellcheck` 0.11.0 on both scripts exited 0.
 - `meow-verbs evidence format lint check test build`, exit 0:
   format passed, record fa0eafcef1a8, current at tree 052c2e85126a;

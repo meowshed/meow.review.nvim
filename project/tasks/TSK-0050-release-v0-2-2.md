@@ -40,7 +40,33 @@ TSK-0030 and TSK-0040, because the release exercises the whole workflow. The `LU
 
 ## Evidence
 
-Not yet.
+Collected on 2026-09-28 for the tag `v0.2.2` on commit `76c99ed`, run
+https://github.com/meowshed/meow.review.nvim/actions/runs/36359482130.
+
+- Criterion 1 (REQ-0602): pushing `v0.2.2` ran `release.yml`; `Check the
+  rock` and `Publish to luarocks.org` both succeeded, with no manual step.
+  `luarocks search --porcelain meow.review.nvim 0.2.2` then listed
+  `0.2.2-1 rockspec` and `0.2.2-1 src` on https://luarocks.org.
+- Criterion 2: `luarocks --lua-version 5.1 install --tree "$tree"
+  --deps-mode none meow.review.nvim 0.2.2-1` into an empty tree, then `find`,
+  gave `…/rocks-5.1/meow.review.nvim/0.2.2-1/plugin/meow-review.lua`.
+- Criterion 3 (REQ-0603): `luarocks download --rockspec meow.review.nvim
+  0.2.2-1`, loaded with Lua 5.1, printed `0.2.2-1`,
+  `https://github.com/meowshed/meow.review.nvim/archive/v0.2.2.zip` and
+  `meow.review.nvim-0.2.2`.
+- Criterion 4: re-running the workflow (attempt 2) failed `Check the rock`
+  with "check-unpublished: meow.review.nvim 0.2.2 is already on
+  https://luarocks.org as 0.2.2-1" and skipped `Publish to luarocks.org`; the
+  published rockspec's SHA-256 was
+  `ea0d26f96ea6fc0b9e1882178973ef91af8d4cb64d95b4e829d7bc6ab7b3ec36` before
+  and after.
+- Criterion 5: waiting on the maintainer, who holds the key.
+- Criterion 6: BUG-0310's Closed by holds criterion 2's commands and output.
+- Criterion 7 (REQ-0601): `publish` has `needs: check`; in the first run
+  `Check the rock` completed at 23:40:45Z and `Publish to luarocks.org`
+  started at 23:40:48Z.
+- Criterion 8: the first run's search step logged "check-unpublished: no
+  revision of meow.review.nvim 0.2.2 is on https://luarocks.org".
 
 ## Left alone
 
