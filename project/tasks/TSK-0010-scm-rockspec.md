@@ -51,7 +51,31 @@ None.
 
 ## Evidence
 
-Not yet.
+Collected at commit `c578038`, tree `b5d327573a9f`.
+
+- Seen failing first, on the 0.2.1 rockspec: `make build` then `find build
+  -path '*/meow.review.nvim/*' \( -name meow-review.lua -o -name
+  meow-review.txt \)` listed only
+  `…/meow.review.nvim/0.2.1-1/doc/meow-review.txt`.
+- Criterion 1 (REQ-0600): `make build` exit 0, then the same `find` under
+  `scm-1` listed
+  `build/lib/luarocks/rocks-5.1/meow.review.nvim/scm-1/plugin/meow-review.lua`
+  and `build/lib/luarocks/rocks-5.1/meow.review.nvim/scm-1/doc/meow-review.txt`.
+- Criterion 2: `luarocks --lua-version 5.1 lint meow.review.nvim-scm-1.rockspec`
+  exit 0; loading it printed `scm-1`,
+  `git+https://github.com/meowshed/meow.review.nvim.git`,
+  `lua >= 5.1,nui.nvim` and `plugin,doc`.
+- Release form: with `$is_release=true`, `$modrev=0.2.2`, `$specrev=1` and
+  `$git_ref=v0.2.2` substituted, loading it printed `0.2.2-1`,
+  `https://github.com/meowshed/meow.review.nvim/archive/v0.2.2.zip` and
+  `meow.review.nvim-0.2.2`; the real `v0.2.1` archive's top directory is
+  `meow.review.nvim-0.2.1/`.
+- `meow-verbs evidence format lint check test build`, exit 0:
+  format passed, record d8f694d3554c, current at tree b5d327573a9f;
+  lint passed, record 591c3068510d, current at tree b5d327573a9f;
+  check passed, record 292c4b666c14, current at tree b5d327573a9f;
+  test passed, record 54b202ebfb79, current at tree b5d327573a9f;
+  build passed, record 6c0ecab0e782, current at tree b5d327573a9f.
 
 ## Left alone
 

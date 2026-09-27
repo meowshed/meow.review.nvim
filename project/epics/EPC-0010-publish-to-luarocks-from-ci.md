@@ -44,8 +44,9 @@ knows which can run at once without conflicting edits.
 
 ## Tasks
 
-- [ ] T-001 TSK-0010 Add `meow.review.nvim-scm-1.rockspec` and build it with `make build`
+- [x] T-001 TSK-0010 Add `meow.review.nvim-scm-1.rockspec` and build it with `make build`
       closes: REQ-0600
+      evidence: `c578038`, `make build` installs `scm-1/plugin/meow-review.lua`; verbs passed at tree b5d327573a9f
 - [ ] T-002 TSK-0020 Add the `check` job in `.github/workflows/release.yml`
       closes: REQ-0601
       depends: TSK-0010 - the check builds the template this task adds
