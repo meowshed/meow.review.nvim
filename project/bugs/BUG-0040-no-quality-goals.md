@@ -1,7 +1,7 @@
 ---
 id: BUG-0040
 artifact: bug
-status: draft
+status: approved
 severity: minor
 enters: research
 found: 2026-09-27

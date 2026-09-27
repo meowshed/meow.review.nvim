@@ -3,7 +3,7 @@ id: REQ-0500
 artifact: requirement
 topic: signs
 class: functional
-status: draft
+status: approved
 revised: 2026-09-27
 elaborates: []
 verification: behavioural

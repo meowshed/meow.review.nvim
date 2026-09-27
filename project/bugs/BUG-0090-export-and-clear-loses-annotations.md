@@ -1,7 +1,7 @@
 ---
 id: BUG-0090
 artifact: bug
-status: draft
+status: approved
 severity: critical
 violates: REQ-0301
 enters: implement

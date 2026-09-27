@@ -3,7 +3,7 @@ id: REQ-0103
 artifact: requirement
 topic: platform
 class: functional
-status: draft
+status: approved
 revised: 2026-09-27
 elaborates: []
 verification: behavioural

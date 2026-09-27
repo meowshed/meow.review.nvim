@@ -1,7 +1,7 @@
 ---
 id: BUG-0260
 artifact: bug
-status: draft
+status: approved
 severity: major
 violates: REQ-0501
 enters: implement
