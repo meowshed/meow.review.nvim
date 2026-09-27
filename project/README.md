@@ -22,6 +22,7 @@ The record of meow.review.nvim: its vision, specifications, epics and defects. R
 
 
 
+
 ## Defects
 
 Written by hand from `paw index defect`, because `paw index --write` writes every kind into the one generated block above (BUG-0180).
@@ -59,3 +60,4 @@ Written by hand from `paw index defect`, because `paw index --write` writes ever
 | [BUG-0280](bugs/BUG-0280-resolve-without-picker.md) | Resolve acts on the first annotation on the line without a picker | approved |
 | [BUG-0290](bugs/BUG-0290-context-capture-no-requirement.md) | Context capture rests on no requirement | approved |
 | [BUG-0300](bugs/BUG-0300-vision-no-direction.md) | The vision doesn't say where the plugin is going | approved |
+| [BUG-0310](bugs/BUG-0310-rock-missing-plugin-dir.md) | The published rock doesn't install `plugin/meow-review.lua`, so rocks.nvim users get no commands or mappings | draft |
