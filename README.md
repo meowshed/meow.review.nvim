@@ -130,6 +130,8 @@ use {
 :Rocks install meow.review.nvim
 ```
 
+Use version 0.2.2 or later: earlier rocks don't install the `plugin/` directory, so they have no `:MeowReview` command or `<Plug>` mappings. If you installed an earlier version, run `:Rocks update`.
+
 Add to your Neovim configuration:
 
 ```lua

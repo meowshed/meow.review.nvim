@@ -139,6 +139,10 @@ rocks.nvim (untested):
 >
 	:Rocks install meow.review.nvim
 <
+Use version 0.2.2 or later: earlier rocks don't install the `plugin/`
+directory, so they have no |:MeowReview| command or <Plug> mappings. If you
+installed an earlier version, run `:Rocks update`.
+
 Then add to your Neovim configuration:
 >
 	require("meow.review").setup({})
