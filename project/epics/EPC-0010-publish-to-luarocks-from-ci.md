@@ -4,7 +4,7 @@ artifact: epic
 status: approved
 revised: 2026-09-27
 realises: ADR-0010
-checked-at:
+checked-at: "#9"
 ---
 
 <!-- Written to the writing standard meow-prose ships: lead with the answer, give each rule its reason in the same sentence, and show the failing case. -->
@@ -89,3 +89,36 @@ which is measurable before anything is published.
 - The key copy on the maintainer's machine and the key in job logs, which
   ADR-0010 leaves unsettled (REQ-0604's open findings); criterion 4 covers
   only the repository.
+
+## Verified
+
+Verified on 2026-09-28 at the revision after pull request #9, the `v0.2.2`
+release; three commits were pushed to `main` directly after it, the last
+touching `README.md` and `doc/meow-review.txt`. `meow-verbs evidence format
+lint check test build` exited 0 at tree 7bbe881d27c0.
+
+1. Criterion 1: with `copy_directories = { "doc" }` in the scm rockspec,
+   `scripts/check-rock.sh` exited 1 with "the installed rock has no
+   plugin/meow-review.lua"; with the real rockspec it passed. Run locally at
+   this revision; the CI evidence is the failed `check` on pull request #3.
+2. Criterion 2: installing `meow.review.nvim 0.2.2-1` from luarocks.org into
+   an empty tree gave `…/rocks-5.1/meow.review.nvim/0.2.2-1/plugin/meow-review.lua`.
+3. Criterion 3: `scripts/check-unpublished.sh 0.2.2` exited 1 with "already
+   on https://luarocks.org as 0.2.2-1"; the published rockspec's SHA-256 is
+   still `ea0d26f96ea6fc0b9e1882178973ef91af8d4cb64d95b4e829d7bc6ab7b3ec36`,
+   as before the release run's re-run.
+4. Criterion 4: `git grep -n LUAROCKS_API_KEY -- .github '*.rockspec'` found
+   only `release.yml:45`, `${{ secrets.LUAROCKS_API_KEY }}`; the maintainer's
+   `git grep -cF -- $KEY (git rev-list --all)` at this revision printed
+   nothing and exited 1.
+5. Criterion 5: the published rockspec loads as `0.2.2-1`, source
+   `https://github.com/meowshed/meow.review.nvim/archive/v0.2.2.zip`, dir
+   `meow.review.nvim-0.2.2`.
+6. Criterion 6: `paw check coverage` reported 0 findings; REQ-0600 closes in
+   TSK-0010, REQ-0601 in TSK-0020, REQ-0602 and REQ-0603 in TSK-0050,
+   REQ-0604 in TSK-0040 and REQ-0605 in TSK-0030, all done.
+
+ADR-0010 postpones no requirement. Each check behind these criteria was
+seen failing before it passed. Outside the criteria: the pinned action's
+inner `cachix/install-nix-action@v30` is pinned by tag only (TSK-0040), and
+versions 0.1.0 to 0.2.1 on luarocks.org still lack `plugin/` (BUG-0310).
