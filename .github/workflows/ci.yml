@@ -45,7 +45,7 @@ jobs:
           echo "$HOME/.luarocks/bin" >> "$GITHUB_PATH"
 
       - name: Cache nui.nvim dep
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: deps/
           key: deps-nui-${{ hashFiles('tests/busted_helper.lua') }}
