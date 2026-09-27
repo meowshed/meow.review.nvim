@@ -46,7 +46,7 @@ Part of the meow.*.nvim plugin family.
 KEY FEATURES					*meow-review-features*
 
 - *Typed annotations*: ISSUE, SUGGESTION, NOTE with distinct icons and
-  highlight groups (fully customizable via `annotation_types` config).
+  highlight groups (fully customisable via `annotation_types` config).
 - *Contextual capture*: Treesitter symbol name (function/class) attached to
   each annotation.
 - *Hunk detection*: Automatically associates annotations with git hunks
@@ -226,7 +226,7 @@ Configuration can also be set via the global variable before the plugin loads:
 ==============================================================================
 ANNOTATION TYPES				*meow-review-annotation-types*
 
-Three annotation types are built in. Customizable via `annotation_types` and
+Three annotation types are built in. Customisable via `annotation_types` and
 `annotation_type_order`. Providing `annotation_types` replaces the entire set —
 to keep a built-in type, include it explicitly.
 

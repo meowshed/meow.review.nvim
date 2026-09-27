@@ -33,7 +33,7 @@ Part of the [project meow](https://github.com/retran/meow) plugin family.
 
 ## Key Features
 
-- **Typed annotations** — ISSUE, SUGGESTION, NOTE with distinct icons and highlight groups (fully customizable)
+- **Typed annotations** — ISSUE, SUGGESTION, NOTE with distinct icons and highlight groups (fully customisable)
 - **Contextual capture** — Treesitter symbol name (function/class) attached to each annotation
 - **Hunk detection** — automatically associates annotations with git hunks (gitsigns) or vimdiff hunks
 - **JSON persistence** — store survives Neovim restarts; default path `.cache/meow-review/annotations.json`
@@ -77,7 +77,7 @@ Part of the [project meow](https://github.com/retran/meow) plugin family.
 
 ### Installation
 
-Install `meow.review.nvim` using your favorite plugin manager.
+Install `meow.review.nvim` using your favourite plugin manager.
 
 #### [lazy.nvim](https://github.com/folke/lazy.nvim)
 
