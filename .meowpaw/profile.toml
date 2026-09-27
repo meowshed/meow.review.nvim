@@ -9,7 +9,9 @@
 [verbs]
 format = "make format-check"
 lint = "make lint"
+check = "make check"
 test = "make test"
+build = "make build"
 
 # The commit convention the history already follows: the longest subject, the
 # trailers every commit carries, and each type with what it means for a

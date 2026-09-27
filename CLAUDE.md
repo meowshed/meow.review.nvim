@@ -65,11 +65,19 @@ users install from that rockspec.
 </principles>
 
 <gate>
-CI (`.github/workflows/ci.yml`) runs on every push and pull request to `main`.
-It runs three jobs: `make test` runs the busted suite through nlua on Neovim
-stable and nightly and fails on any failing spec; `make lint` runs luacheck and
-fails on any warning; and `stylua --check lua/ plugin/ tests/ scripts/` fails
-on any file stylua would change. `make deps` installs busted and nlua into the
-user LuaRocks tree for Lua 5.1, and the test runner clones `nui.nvim` into
-`deps/` on first run.
+CI (`.github/workflows/ci.yml`) runs on every push and pull request to `main`,
+and each job runs one `make` target that you can run locally too:
+
+- `make test` runs the busted suite through nlua on Neovim stable and nightly,
+  and fails on any failing spec.
+- `make lint` runs luacheck and fails on any warning.
+- `stylua --check lua/ plugin/ tests/ scripts/` (`make format-check` locally)
+  fails on any file stylua would change.
+- `make check` runs lua-language-server on `lua/` and `plugin/` against
+  Neovim's runtime, and fails on any diagnostic at warning level or above.
+- `make build` builds the newest rockspec into `build/`, and fails if
+  LuaRocks can't install it.
+
+`make deps` installs busted and nlua into `~/.luarocks` for Lua 5.1, and the
+test runner clones `nui.nvim` into `deps/` on first run.
 </gate>

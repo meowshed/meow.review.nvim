@@ -16,6 +16,12 @@ Thumbs.db
 # Logs
 *.log
 
+# Local tool versions (mise)
+mise.local.toml
+
+# Build output (make build)
+build/
+
 # Test artifacts
 test-results/
 coverage/
