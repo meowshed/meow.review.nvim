@@ -29,6 +29,8 @@
 local M = {}
 
 ---@class meow.review.InternalConfig
+---@field annotation_types? table<string, meow.review.AnnotationType>
+---@field annotation_type_order? string[]
 local default_config = {
     ---@type number
     context_lines = 3,

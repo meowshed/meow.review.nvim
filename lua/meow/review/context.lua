@@ -127,6 +127,7 @@ function M.get_symbol()
         return nil
     end
 
+    ---@type TSNode?
     local current = node
     while current do
         if CONTEXT_TYPE_SET[current:type()] then
@@ -199,12 +200,15 @@ function M.find_hunk_at_cursor()
     local lines_a = vim.api.nvim_buf_get_lines(buf_a, 0, -1, false)
     local lines_b = vim.api.nvim_buf_get_lines(buf_b, 0, -1, false)
 
-    local diff_ok, indices = pcall(vim.diff, table.concat(lines_a, "\n"), table.concat(lines_b, "\n"), {
+    -- vim.diff became vim.text.diff in Neovim 0.12; 0.11 has only vim.diff.
+    ---@diagnostic disable-next-line: deprecated
+    local text_diff = (vim.text and vim.text.diff) or vim.diff
+    local diff_ok, indices = pcall(text_diff, table.concat(lines_a, "\n"), table.concat(lines_b, "\n"), {
         result_type = "indices",
         algorithm = "myers",
     })
 
-    if not diff_ok or not indices then
+    if not diff_ok or type(indices) ~= "table" then
         return nil
     end
 

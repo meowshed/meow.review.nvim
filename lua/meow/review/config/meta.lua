@@ -40,6 +40,9 @@
 ---@field hunk_end number|nil Hunk end line in the new file, or nil.
 ---@field timestamp number Unix timestamp when the annotation was created.
 ---@field resolved boolean Whether this annotation has been resolved (default false).
+---@field stale? boolean Set at run time when the snippet no longer matches the file; never saved.
+---@field extmark_id? integer Set at run time to the sign extmark's ID; never saved.
+---@field bufnr? integer Set at run time to the buffer holding the sign extmark; never saved.
 
 ---@alias meow.review.ExporterFn fun(markdown: string, root: string)
 

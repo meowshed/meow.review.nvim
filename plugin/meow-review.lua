@@ -33,7 +33,7 @@ vim.g.loaded_meow_review = 1
 
 -- Check Neovim version compatibility
 if vim.fn.has("nvim-0.11.0") == 0 then
-    vim.api.nvim_err_writeln("meow.review.nvim requires Neovim >= 0.11.0")
+    vim.notify("meow.review.nvim requires Neovim >= 0.11.0", vim.log.levels.ERROR)
     return
 end
 
@@ -41,7 +41,7 @@ end
 local function check_dependencies()
     local has_nui, _ = pcall(require, "nui.input")
     if not has_nui then
-        vim.api.nvim_err_writeln("meow.review.nvim requires nui.nvim (https://github.com/MunifTanjim/nui.nvim)")
+        vim.notify("meow.review.nvim requires nui.nvim (https://github.com/MunifTanjim/nui.nvim)", vim.log.levels.ERROR)
         return false
     end
     return true

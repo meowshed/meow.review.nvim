@@ -1,8 +1,8 @@
 {
-    "runtime.version": "Lua 5.1",
+    "runtime.version": "LuaJIT",
     "runtime.path": ["?.lua", "?/init.lua"],
     "diagnostics.globals": ["vim"],
-    "workspace.library": ["$VIMRUNTIME/lua", "./lua"],
+    "workspace.library": ["$VIMRUNTIME/lua", "./lua", "${3rd}/busted/library", "${3rd}/luassert/library"],
     "workspace.checkThirdParty": false,
     "completion.callSnippet": "Replace",
     "completion.keywordSnippet": "Replace",

@@ -95,8 +95,6 @@ end
 
 -- ── Exporter registry ─────────────────────────────────────────────────────────
 
----@alias meow.review.ExporterFn fun(markdown: string, root: string)
-
 --- Ordered list of registered exporter names (insertion order).
 ---@type string[]
 local exporter_order = {}
@@ -439,7 +437,7 @@ end
 
 --- Register the built-in exporters and formatters based on configuration.
 --- Called from `init.lua` during `setup()`.
----@param cfg meow.review.Config
+---@param cfg meow.review.InternalConfig
 function M.setup_builtins(cfg)
     local disabled = cfg.disabled_exporters or {}
     local disabled_set = {}
