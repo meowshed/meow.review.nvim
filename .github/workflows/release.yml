@@ -23,3 +23,8 @@ jobs:
 
       - name: Check the installed rock ships plugin/meow-review.lua
         run: scripts/check-rock.sh
+
+      # Only a tag has a version to search for.
+      - name: Refuse a version already on luarocks.org
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: scripts/check-unpublished.sh "${GITHUB_REF_NAME#v}"
