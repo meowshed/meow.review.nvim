@@ -2,7 +2,7 @@
 
 <!-- meow-flow index -->
 
-15 requirements in all: 15 approved.
+21 requirements in all: 15 approved, 6 draft.
 
 | Identifier | What it requires | Status |
 | --- | --- | --- |
@@ -21,4 +21,10 @@
 | [REQ-0400](REQ-0400-pick-overlapping.md) | When several annotations cover the cursor, edit, delete and view MUST let the user pick which one to act on. | approved |
 | [REQ-0500](REQ-0500-follow-edits.md) | When lines are inserted or deleted above an annotation, its whole range MUST move with the text it was left on, for its sign and for every operation that finds an annotation by position: goto, next, prev, edit, delete, view and resolve. | approved |
 | [REQ-0501](REQ-0501-stale-detection.md) | `validate()` MUST mark an annotation stale when its file is gone, its line is past the end of the file, or its snippet no longer matches the file. | approved |
+| [REQ-0600](REQ-0600-rock-ships-runtime-dirs.md) | Every rock built for release MUST install `plugin/` and `doc/` along with the Lua modules. | draft |
+| [REQ-0601](REQ-0601-check-rock-before-publish.md) | A rock MUST be published only after a rock built at the commit the release tag names, from the rockspec that is published or the template it is generated from, has been installed and its installed files checked to include `plugin/meow-review.lua`. | draft |
+| [REQ-0602](REQ-0602-publish-on-tag.md) | When a release tag `vX.Y.Z` is pushed, the release, built from the commit the tag points to, MUST be published to luarocks.org with no manual step, unless the check REQ-0601 requires fails or the version already exists as REQ-0605 describes. | draft |
+| [REQ-0603](REQ-0603-version-matches-tag.md) | The version part of the rock published to luarocks.org for a tag `vX.Y.Z` MUST be `X.Y.Z`. | draft |
+| [REQ-0604](REQ-0604-api-key-as-secret.md) | The LuaRocks API key MUST appear in the repository, including the publishing workflow, only as a reference to a CI secret. | draft |
+| [REQ-0605](REQ-0605-no-republish.md) | When any rockspec revision of the version `X.Y.Z` being published already exists on luarocks.org, the publishing workflow run MUST fail and leave the published files unchanged. | draft |
 <!-- /meow-flow index -->

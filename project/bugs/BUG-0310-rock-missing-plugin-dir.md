@@ -3,7 +3,7 @@ id: BUG-0310
 artifact: bug
 status: draft
 severity: major
-violates: REQ-0105
+violates: REQ-0600
 enters: implement
 found: 2026-09-27
 revised: 2026-09-27
@@ -12,7 +12,7 @@ issue:
 
 <!-- Written to the writing standard meow-prose ships: lead with the answer, give each rule its reason in the same sentence, and show the failing case. -->
 
-# The published rock doesn't install `plugin/meow-review.lua`, so rocks.nvim users get no commands or mappings
+# The published rock doesn't install `plugin/meow-review.lua`, so rocks.nvim users likely get no commands or mappings
 
 ## Reproduction
 
@@ -37,24 +37,30 @@ the directories LuaRocks copies by itself are installed (RES-0010, Finding 2).
 
 rocks.nvim loads a plugin's `plugin` scripts from the rock's runtime
 directories (RES-0010, Finding 3), so a user who installs through rocks.nvim
-gets the Lua API but no `:MeowReview` command and no `<Plug>(MeowReview…)`
-mapping.
+likely gets the Lua API but no `:MeowReview` command and no
+`<Plug>(MeowReview…)` mapping. That is inferred from rocks.nvim's README, not
+observed in a rocks.nvim install.
 
 ## What it should do, and why
 
-The installed rock should include `plugin/meow-review.lua` and `doc/`, so
-that every action is offered as a `<Plug>` mapping, as REQ-0105 requires, for
-rocks.nvim users as for users who clone the repository.
+The installed rock should include `plugin/meow-review.lua`, as REQ-0600
+requires, so that rocks.nvim users get `:MeowReview` and every `<Plug>`
+mapping (REQ-0105), as users who clone the repository do. `doc/` is already
+installed.
 
 ## Triage
 
-Enters at implement, because it violates REQ-0105. Major: the plugin is
+Enters at implement, because it violates REQ-0600. Major: the plugin is
 unusable from the keyboard for rocks.nvim users, one of the three install
-paths README.md documents, though the Lua API still works. Every published
-version since 0.1.0 is likely affected, because no rockspec declares
-`copy_directories`; only 0.2.1 was reproduced. The CI `build` job installs the
+paths README.md documents, though the Lua API still works. The rockspecs for 0.1.0-1, 0.2.0-1 and 0.2.1-1 all
+use `type = "builtin"` with no `copy_directories`, so every published
+version is likely affected; only 0.2.1 was reproduced. The missing commands
+under rocks.nvim are inferred from rocks.nvim's README (RES-0010, Finding 3),
+not observed in a rocks.nvim install. The CI `build` job installs the
 rock on every push and passed with the defect, because an install succeeds
-whether or not the directory is copied (RES-0010, Finding 4).
+whether or not the directory is copied (RES-0010, Finding 4); REQ-0601
+tracks the content check that would catch it, separately from the rockspec
+fix.
 
 ## Closed by
 
