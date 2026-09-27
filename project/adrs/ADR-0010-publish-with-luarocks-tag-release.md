@@ -1,7 +1,7 @@
 ---
 id: ADR-0010
 artifact: adr
-status: draft
+status: approved
 revised: 2026-09-27
 addresses: [REQ-0600, REQ-0601, REQ-0602, REQ-0603, REQ-0604, REQ-0605]
 supersedes: []
