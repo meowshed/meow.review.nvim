@@ -1,0 +1,40 @@
+# What this repository declares to the harness. Every section is optional: a
+# unit whose section is absent reports what it can't do and does nothing in its
+# place. Fill each value from what the repository already does, never from what
+# it might do.
+
+# One command per verification verb, each run by the shell from the
+# repository's root. Leave out a verb the repository has no command for, and
+# the harness reports it as unresolved.
+[verbs]
+format = "make format-check"
+lint = "make lint"
+test = "make test"
+
+# The commit convention the history already follows: the longest subject, the
+# trailers every commit carries, and each type with what it means for a
+# release.
+[commits]
+subject_limit = 72
+trailers = []
+
+[commits.types]
+feat = "minor"
+fix = "patch"
+perf = "patch"
+refactor = "none"
+docs = "none"
+ci = "none"
+chore = "none"
+release = "none"
+
+# The branch nobody commits to directly, and whether every pushed commit must
+# carry a verified signature.
+[git]
+trunk = "main"
+require_signatures = false
+
+# The tracker the record is projected onto, for a repository that uses one.
+# Leave the section out for one that doesn't: the method needs none.
+[tracker]
+kind = "github"
