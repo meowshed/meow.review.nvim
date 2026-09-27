@@ -55,5 +55,5 @@ test_dependencies = {
 -- rocks.nvim loads from the rock's runtime directories (REQ-0600).
 build = {
     type = "builtin",
-    copy_directories = { "plugin", "doc" },
+    copy_directories = { "doc" },
 }
