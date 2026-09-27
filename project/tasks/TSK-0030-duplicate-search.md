@@ -18,9 +18,9 @@ On a pushed tag `vX.Y.Z`, `check` fails if any revision of `X.Y.Z` is already on
 
 1. Given version `0.2.1`, whose `0.2.1-1` is on luarocks.org, when `scripts/check-unpublished.sh 0.2.1` runs, then it exits non-zero and names `0.2.1-1`. Closed by: the command and its output.
 2. Given version `9.9.9`, which has no revision on luarocks.org, when `scripts/check-unpublished.sh 9.9.9` runs, then it exits 0. Closed by: the command and its output.
-3. Given a pushed `v*` tag, when `check` runs, then it calls the script with the tag's version. Closed by: the `v0.2.2` run in TSK-0050.
+3. Moved to TSK-0050 criterion 8 on 2026-09-28, with the maintainer's approval, because kept here it made TSK-0030 wait on TSK-0050, which depends on it through TSK-0040.
 4. Given no network, when `scripts/check-unpublished.sh 0.2.2` runs, then it exits non-zero and says the search failed. Closed by: the command run with networking off, and its output.
-5. Given `v0.2.2` published, when the workflow is re-run, then `check` fails at the search and `publish` doesn't run. Closed by: TSK-0050 criterion 4's re-run and checksums; this task stays `[>]` until then.
+5. Moved to TSK-0050 on 2026-09-28, with the maintainer's approval, for the same reason; TSK-0050 criterion 4 already checks it.
 
 ## What to do
 
@@ -58,7 +58,7 @@ Collected at commit `1fef804`, tree `052c2e85126a`.
   `LUAROCKS_SERVER=https://nonexistent.invalid scripts/check-unpublished.sh
   0.2.2`, which exited 1 with "the search couldn't reach
   https://nonexistent.invalid" and the LuaRocks warning.
-- Criteria 3 and 5: not yet; they need the `v0.2.2` run in TSK-0050.
+- Criteria 3 and 5: moved to TSK-0050.
 - `shellcheck` 0.11.0 on both scripts exited 0.
 - `meow-verbs evidence format lint check test build`, exit 0:
   format passed, record fa0eafcef1a8, current at tree 052c2e85126a;
