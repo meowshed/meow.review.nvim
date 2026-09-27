@@ -59,9 +59,9 @@ knows which can run at once without conflicting edits.
       closes: REQ-0604
       evidence: `faf7efa`; `publish` skipped on PR #5, only the secret reference names the key; Dependabot's update job passed on `d87462c`
       depends: TSK-0030 - both edit `release.yml`, and `publish` lands after `check` is complete
-- [>] T-005 TSK-0050 Release `v0.2.2` through the new workflow
+- [x] T-005 TSK-0050 Release `v0.2.2` through the new workflow
       closes: REQ-0602, REQ-0603
-      evidence: `v0.2.2` published as `0.2.2-1` by run 36359482130; the re-run failed at the search; criterion 5 waits on the maintainer
+      evidence: `v0.2.2` published as `0.2.2-1` by run 36359482130; the re-run failed at the search; the key is in no revision
       depends: TSK-0030, TSK-0040 - the release exercises the whole workflow; also the `LUAROCKS_API_KEY` secret
 
 ## Coverage

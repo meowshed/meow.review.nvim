@@ -60,7 +60,10 @@ https://github.com/meowshed/meow.review.nvim/actions/runs/36359482130.
   published rockspec's SHA-256 was
   `ea0d26f96ea6fc0b9e1882178973ef91af8d4cb64d95b4e829d7bc6ab7b3ec36` before
   and after.
-- Criterion 5: waiting on the maintainer, who holds the key.
+- Criterion 5 (REQ-0604): the maintainer read the key with `read -s` and ran
+  `git grep -cF -- $KEY (git rev-list --all)` in the working clone on
+  2026-09-28; it printed nothing and exited 1, so no revision contains the
+  key. Reported by the maintainer; the key was never shown.
 - Criterion 6: BUG-0310's Closed by holds criterion 2's commands and output.
 - Criterion 7 (REQ-0601): `publish` has `needs: check`; in the first run
   `Check the rock` completed at 23:40:45Z and `Publish to luarocks.org`
