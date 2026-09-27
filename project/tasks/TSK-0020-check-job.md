@@ -37,7 +37,26 @@ TSK-0010, because the job builds the template that task adds.
 
 ## Evidence
 
-Not yet.
+Collected at commit `7b07bc7`, tree `d81613dc3c06`.
+
+- Seen failing first, locally: with `copy_directories = { "doc" }` in the
+  scm rockspec, `scripts/check-rock.sh` exited 1 with "check-rock: the
+  installed rock has no plugin/meow-review.lua (looked in
+  …/rocks-5.1/meow.review.nvim/scm-1)"; with the real rockspec it exited 0.
+- Criterion 1 (REQ-0601): throwaway pull request #3, which dropped `plugin`,
+  failed the `check` job with the same message:
+  https://github.com/meowshed/meow.review.nvim/actions/runs/36356649576/job/108725601832.
+  The pull request was closed unmerged.
+- Criterion 2: this task's pull request #2 passed the `check` job:
+  https://github.com/meowshed/meow.review.nvim/actions/runs/36356646458/job/108725592305.
+- Criterion 3: not yet; it needs `needs: check` from TSK-0040 and the
+  `v0.2.2` run in TSK-0050.
+- `meow-verbs evidence format lint check test build`, exit 0:
+  format passed, record 5464b1b69c8f, current at tree d81613dc3c06;
+  lint passed, record df9ae67c85aa, current at tree d81613dc3c06;
+  check passed, record edead232499f, current at tree d81613dc3c06;
+  test passed, record c43374e68750, current at tree d81613dc3c06;
+  build passed, record 9ff39253515a, current at tree d81613dc3c06.
 
 ## Left alone
 
