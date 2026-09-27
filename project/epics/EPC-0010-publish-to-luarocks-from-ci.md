@@ -55,9 +55,9 @@ knows which can run at once without conflicting edits.
       closes: REQ-0605
       evidence: `1fef804`; the script refuses 0.2.1, passes 9.9.9 and fails closed offline; criteria 3 and 5 moved to TSK-0050, with the maintainer's approval
       depends: TSK-0020 - the search is a step of the `check` job
-- [>] T-004 TSK-0040 Add the `publish` job, Dependabot and the new release principle
+- [x] T-004 TSK-0040 Add the `publish` job, Dependabot and the new release principle
       closes: REQ-0604
-      evidence: `faf7efa`; `publish` skipped on PR #5, only the secret reference names the key; Dependabot's run waits for the merge
+      evidence: `faf7efa`; `publish` skipped on PR #5, only the secret reference names the key; Dependabot's update job passed on `d87462c`
       depends: TSK-0030 - both edit `release.yml`, and `publish` lands after `check` is complete
 - [ ] T-005 TSK-0050 Release `v0.2.2` through the new workflow
       closes: REQ-0602, REQ-0603

@@ -51,8 +51,9 @@ Collected at commit `faf7efa`, tree `69b9e11bb077`.
   LUAROCKS_API_KEY -- .github '*.rockspec'` listed it as a match that isn't a
   secret reference; after restoring the file the only match is
   `.github/workflows/release.yml:45:          LUAROCKS_API_KEY: ${{ secrets.LUAROCKS_API_KEY }}`.
-- Criterion 3: not yet; Dependabot runs only after `.github/dependabot.yml`
-  is on `main`.
+- Criterion 3: after the merge to `main` at `d87462c`, Dependabot's update
+  job `github_actions in /.` completed with success:
+  https://github.com/meowshed/meow.review.nvim/actions/runs/36358787802.
 - Criterion 4: CLAUDE.md's principle `changelog_and_rockspec_per_release` is
   replaced by `changelog_and_tag_per_release`, which gives its reason (the
   published version can't be replaced).
