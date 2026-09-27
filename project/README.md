@@ -4,7 +4,7 @@ The record of meow.review.nvim: its vision, specifications, epics and defects. R
 
 <!-- meow-flow index -->
 
-10 specifications in all: 10 live.
+11 specifications in all: 11 live.
 
 | Identifier | What it concluded | Status |
 | --- | --- | --- |
@@ -18,7 +18,11 @@ The record of meow.review.nvim: its vision, specifications, epics and defects. R
 | [SPC-0080](specs/SPC-0080-configuration.md) | Configuration | live |
 | [SPC-0090](specs/SPC-0090-commands-and-navigation.md) | Commands, mappings, navigation and status | live |
 | [SPC-0100](specs/SPC-0100-health-check.md) | Health check | live |
+| [SPC-0110](specs/SPC-0110-release-and-publishing.md) | Release and publishing | live |
 <!-- /meow-flow index -->
+
+
+
 
 
 
@@ -64,3 +68,12 @@ Written by hand from `paw index defect`, because `paw index --write` writes ever
 | [BUG-0290](bugs/BUG-0290-context-capture-no-requirement.md) | Context capture rests on no requirement | approved |
 | [BUG-0300](bugs/BUG-0300-vision-no-direction.md) | The vision doesn't say where the plugin is going | approved |
 | [BUG-0310](bugs/BUG-0310-rock-missing-plugin-dir.md) | The published rock doesn't install `plugin/meow-review.lua`, so rocks.nvim users likely get no commands or mappings | approved |
+
+## Epics
+
+Written by hand from `paw index epic`, for the same reason.
+
+
+| Identifier | What it concluded | Status |
+| --- | --- | --- |
+| [EPC-0010](epics/EPC-0010-publish-to-luarocks-from-ci.md) | Publish each tagged release to LuaRocks from CI, with a rock that ships `plugin/` | draft |
