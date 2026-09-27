@@ -4,7 +4,7 @@ The record of meow.review.nvim: its vision, specifications, epics and defects. R
 
 <!-- meow-flow index -->
 
-6 specifications in all: 6 live.
+10 specifications in all: 10 live.
 
 | Identifier | What it concluded | Status |
 | --- | --- | --- |
@@ -14,7 +14,12 @@ The record of meow.review.nvim: its vision, specifications, epics and defects. R
 | [SPC-0040](specs/SPC-0040-modals-and-picker.md) | Modals, view popup and picker | live |
 | [SPC-0050](specs/SPC-0050-signs-and-staleness.md) | Signs, position tracking and stale detection | live |
 | [SPC-0060](specs/SPC-0060-context-capture.md) | Context capture | live |
+| [SPC-0070](specs/SPC-0070-annotation-types.md) | Annotation types | live |
+| [SPC-0080](specs/SPC-0080-configuration.md) | Configuration | live |
+| [SPC-0090](specs/SPC-0090-commands-and-navigation.md) | Commands, mappings, navigation and status | live |
+| [SPC-0100](specs/SPC-0100-health-check.md) | Health check | live |
 <!-- /meow-flow index -->
+
 
 ## Defects
 

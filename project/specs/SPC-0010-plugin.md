@@ -16,7 +16,8 @@ states: [REQ-0100, REQ-0101, REQ-0102, REQ-0103, REQ-0104, REQ-0105]
 This covers what is true of the whole plugin: its entry points, its
 configuration, its dependencies and how its modules call one another. Each
 part has its own document: the annotation store, export, the modals and
-picker, signs and stale detection, and context capture.
+picker, signs and stale detection, context capture, annotation types,
+configuration, commands and navigation, and the health check.
 
 ## Boundary
 
