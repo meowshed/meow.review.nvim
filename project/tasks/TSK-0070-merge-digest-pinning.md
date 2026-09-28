@@ -33,7 +33,30 @@ TSK-0060, because Renovate proposes the pinning only once its config is on `main
 
 ## Evidence
 
-Not yet.
+Collected on 2026-09-28 at the squash commit `f977218`, merged through pull
+request #12.
+
+- Seen failing first: before #12, 11 of the 12 `uses:` lines on `main`
+  referenced a tag, such as `actions/checkout@v7`, and failed the check
+  `grep -rn 'uses:' .github/workflows/ | grep -vE '@[0-9a-f]{40} # v[0-9]+\.[0-9]+\.[0-9]+$'`.
+- Renovate held the pull request under "Pending Status Checks" in dashboard
+  #11, because `prCreation: not-pending` waits for checks and the workflows
+  don't run on `renovate/**` pushes; the maintainer asked to force it, and
+  ticking its box in #11 made Renovate open #12.
+- Criterion 1: #12 changed only `uses:` lines in `ci.yml` (9) and
+  `release.yml` (2), each to a 40-character SHA. Ten carried a full version;
+  Renovate wrote `JohnnyMorganz/stylua-action@76fd70c… # v5`, keeping the
+  moving tag, so commit `096553f` on the pull request changed it to
+  `# v5.0.0`, the release tag at the same commit (`gh api
+  repos/JohnnyMorganz/stylua-action/tags`: `v5.0.0` and `v5` both at
+  `76fd70c03e6340ceaf673366712db9b20560b402`). The same commit replaced the
+  stale comment "Dependabot proposes moving the pin" in `release.yml` with
+  Renovate (ADR-0020). actionlint 1.7.12 passed; all checks passed on #12.
+- Criterion 2 (REQ-0701): on `main` after the merge, all 12 `uses:` lines
+  match `@<40-char SHA> # vX.Y.Z` and none fails the check above.
+- Finding: every Renovate update here waits about a day for status checks
+  that never run on its branches, because of `prCreation: not-pending`;
+  REQ-0702's seven days still leaves room, which TSK-0080 will show.
 
 ## Left alone
 

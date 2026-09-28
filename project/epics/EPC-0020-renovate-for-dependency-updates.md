@@ -43,8 +43,9 @@ the squashed commit is that commit.
 - [x] T-001 TSK-0060 Land `renovate.json` through pull request #10 and remove `.github/dependabot.yml`
       closes: REQ-0700, REQ-0703
       evidence: `df197cb` via #10; dashboard #11 created; the maintainer confirmed the Mend settings and REQ-0703
-- [ ] T-002 TSK-0070 Merge Renovate's digest-pinning pull request
+- [x] T-002 TSK-0070 Merge Renovate's digest-pinning pull request
       closes: REQ-0701
+      evidence: `f977218` via #12; all 12 `uses:` lines at a SHA with `# vX.Y.Z`
       depends: TSK-0060 - Renovate proposes the pinning only once its config is on `main`
 - [ ] T-003 TSK-0080 Show Renovate proposes an action release within seven days
       closes: REQ-0702
