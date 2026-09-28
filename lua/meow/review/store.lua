@@ -289,13 +289,30 @@ function M.save()
         return
     end
 
-    local f = io.open(path, "w")
+    -- Write beside the store and rename over it, so a write that fails partway
+    -- leaves the old file whole (BUG-0270).
+    local tmp = path .. ".tmp"
+    local f = io.open(tmp, "w")
     if not f then
-        vim.notify("MeowReview: Cannot write " .. path, vim.log.levels.ERROR)
+        vim.notify("MeowReview: Cannot write " .. tmp, vim.log.levels.ERROR)
         return
     end
-    f:write(json)
-    f:close()
+    local wrote, write_err = f:write(json)
+    local closed, close_err = f:close()
+    if not wrote or not closed then
+        os.remove(tmp)
+        vim.notify(
+            "MeowReview: Saving " .. path .. " failed, the old file is kept: " .. tostring(write_err or close_err),
+            vim.log.levels.ERROR
+        )
+        return
+    end
+    local renamed, rename_err = os.rename(tmp, path)
+    if not renamed then
+        os.remove(tmp)
+        vim.notify("MeowReview: Saving " .. path .. " failed: " .. tostring(rename_err), vim.log.levels.ERROR)
+        return
+    end
 
     -- After a successful write, handle gitignore (non-blocking if prompt)
     vim.schedule(function()
