@@ -1,7 +1,7 @@
 ---
 id: TSK-0060
 artifact: task
-status: draft
+status: approved
 revised: 2026-09-28
 epic: EPC-0020
 closes: [REQ-0700, REQ-0703]

@@ -35,6 +35,7 @@ The record of meow.review.nvim: its vision, specifications, epics and defects. R
 
 
 
+
 ## Defects
 
 Written by hand from `paw index defect`, because `paw index --write` writes every kind into the one generated block above (BUG-0180).
@@ -82,4 +83,4 @@ Written by hand from `paw index epic`, for the same reason.
 | Identifier | What it concluded | Status |
 | --- | --- | --- |
 | [EPC-0010](epics/EPC-0010-publish-to-luarocks-from-ci.md) | Publish each tagged release to LuaRocks from CI, with a rock that ships `plugin/` | approved |
-| [EPC-0020](epics/EPC-0020-renovate-for-dependency-updates.md) | Renovate proposes every dependency update, and every action runs at a pinned commit | draft |
+| [EPC-0020](epics/EPC-0020-renovate-for-dependency-updates.md) | Renovate proposes every dependency update, and every action runs at a pinned commit | approved |
