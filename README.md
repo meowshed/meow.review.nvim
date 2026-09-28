@@ -356,6 +356,8 @@ require("meow.review").register_exporter("my_exporter", function(markdown, root)
 end)
 ```
 
+Raise an error to report a failed export; returning normally counts as success. An exporter that finishes later, for example after asking for input, returns `require("meow.review.export").DEFERRED` and calls the function passed as its third argument once, with `true` on success. `export_and_clear` clears the store only after that success.
+
 Trigger it:
 
 ```vim

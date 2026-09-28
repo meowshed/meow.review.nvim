@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- `export_and_clear` no longer clears the store when nothing was exported:
+  when the `file_prompt` prompt is cancelled, when `file` or `file_prompt`
+  can't write, or when a formatter fails (BUG-0090).
+
+### Added
+
+- Exporters can report failure by raising an error, and an exporter that
+  finishes later returns `export.DEFERRED` and reports through a `done`
+  callback, its third argument.
+
 ## [0.2.2] - 2026-09-28
 
 ### Fixed
