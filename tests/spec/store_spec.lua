@@ -302,6 +302,35 @@ describe("meow.review.store", function()
             assert.equal(original, read())
         end)
 
+        it("keeps the old file when a write fails partway (BUG-0270)", function()
+            local original = '{"version":1,"annotations":[]}'
+            write(original)
+            local s = real_store()
+            s.load(tmpdir)
+            local real_open = io.open
+            rawset(io, "open", function(p, mode)
+                if mode == "w" then
+                    -- A handle whose write fails, as on a full disk.
+                    local h = assert(real_open(p, mode))
+                    return setmetatable({}, {
+                        __index = {
+                            write = function()
+                                return nil, "No space left on device"
+                            end,
+                            close = function()
+                                return h:close()
+                            end,
+                        },
+                    })
+                end
+                return real_open(p, mode)
+            end)
+            local ok, err = pcall(s.add, { file = "x.lua", lnum = 1, type = "NOTE", text = "new" })
+            rawset(io, "open", real_open)
+            assert.truthy(ok, tostring(err))
+            assert.equal(original, read())
+        end)
+
         it("saves again once the store loads cleanly", function()
             write('{"version": 1, "annotations": []}')
             local s = real_store()

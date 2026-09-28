@@ -14,7 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     can't write, or when a formatter fails (BUG-0090).
 - A store file that can't be read, because it isn't valid JSON or has an
   unknown version, is no longer overwritten by the next change; the plugin
-  refuses to save over it and says so (BUG-0110).
+    refuses to save over it and says so (BUG-0110).
+- A save that fails partway, for example on a full disk, keeps the old store
+  file whole and reports the failure; the store is written beside the file
+  and renamed over it (BUG-0270).
 
 ### Added
 
