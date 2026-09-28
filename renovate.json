@@ -1,0 +1,18 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", "group:recommended", "helpers:pinGitHubActionDigestsToSemver"],
+  "timezone": "Europe/Amsterdam",
+  "schedule": ["before 6am on Monday"],
+  "prCreation": "not-pending",
+  "rebaseWhen": "conflicted",
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "description": "GitHub Actions, pinned to commit digests with a full-version comment, so a moved tag can't change what runs (ADR-0020, REQ-0701).",
+      "matchManagers": ["github-actions"],
+      "pinDigests": true,
+      "groupName": "github actions",
+      "semanticCommitType": "ci"
+    }
+  ]
+}
