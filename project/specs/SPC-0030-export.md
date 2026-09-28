@@ -2,7 +2,7 @@
 id: SPC-0030
 artifact: spec
 status: live
-revised: 2026-09-27
+revised: 2026-09-28
 checked-at:
 states: [REQ-0300, REQ-0301, REQ-0302]
 ---
@@ -22,9 +22,12 @@ store holds.
 - An exporter is `fun(content: string, root: string)`, registered by name
   with `register_exporter` and removed with `unregister_exporter` (from
   doc/meow-review.txt, high).
-- An exporter signals failure only by raising an error. A normal return
-  counts as success, its return value is ignored, and work it finishes later
-  is not awaited (from lua/meow/review/export.lua, high).
+- An exporter signals failure by raising an error; a normal return counts as
+  success. An exporter that finishes later returns `export.DEFERRED` and calls
+  the `done` function it gets as its third argument once, with `true` on
+  success (BUG-0090; lua/meow/review/export.lua).
+- `export(name, formatter, filter, on_done)` calls `on_done(ok)` exactly
+  once, when the export has finished (lua/meow/review/export.lua).
 - A formatter is `fun(annotations: meow.review.Annotation[]): string`,
   registered with `register_formatter` and removed with
   `unregister_formatter` (from doc/meow-review.txt and
@@ -67,8 +70,8 @@ store holds.
   snippet with line numbers and a language taken from the file extension;
   the comment comes last (from doc/meow-review.txt and
   lua/meow/review/export.lua, high).
-- `export_and_clear` clears the store when the export reports success
-  (REQ-0301; from doc/meow-review.txt, high).
+- `export_and_clear` clears the store only once the export has finished and
+  succeeded (REQ-0301; lua/meow/review/init.lua).
 
 ## Failure paths
 
@@ -83,20 +86,14 @@ store holds.
 - An exporter that raises an error is reported with its name, the export
   counts as failed, and `export_and_clear` keeps the store (from
   lua/meow/review/export.lua, high).
-- A formatter that raises an error isn't caught: the Lua error reaches the
-  caller, and `export_and_clear` keeps the store because it never reaches the
-  clear (from lua/meow/review/export.lua, high).
-- When the `json` formatter can't encode, it reports the error and returns
-  `{}`, so the export counts as successful and `export_and_clear` clears the
-  store (from lua/meow/review/export.lua, high).
-- When `file` or `file_prompt` can't open its path, it reports the error and
-  returns normally, so the export counts as successful and
-  `export_and_clear` clears the store although nothing was written (from
-  lua/meow/review/export.lua, high).
-- `file_prompt` returns before the user answers its prompt, so
-  `export_and_clear` with `file_prompt` clears the store as soon as the
-  prompt opens, and cancelling the prompt writes nothing (from
-  lua/meow/review/export.lua and lua/meow/review/init.lua, high).
+- A formatter that raises an error is reported with its name, and the export
+  fails (lua/meow/review/export.lua).
+- When the `json` formatter can't encode, it raises, and the export fails
+  (lua/meow/review/export.lua).
+- When `file` or `file_prompt` can't open its path, the export fails and
+  `export_and_clear` keeps the store (lua/meow/review/export.lua).
+- `file_prompt` defers until its prompt is answered; cancelling it fails the
+  export, and `export_and_clear` keeps the store (lua/meow/review/export.lua).
 - A second argument to `:MeowReview export` is ignored, although
   doc/meow-review.txt shows `:MeowReview export clipboard xml` choosing a
   formatter (from plugin/meow-review.lua, high).
