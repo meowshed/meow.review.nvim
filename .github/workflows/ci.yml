@@ -18,10 +18,10 @@ jobs:
           - nightly
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Install Neovim (${{ matrix.nvim }})
-        uses: rhysd/action-setup-vim@v1
+        uses: rhysd/action-setup-vim@febef33995d6649302e9d88dda81e071b68f16a7 # v1.6.1
         with:
           neovim: true
           version: ${{ matrix.nvim }}
@@ -45,7 +45,7 @@ jobs:
           echo "$HOME/.luarocks/bin" >> "$GITHUB_PATH"
 
       - name: Cache nui.nvim dep
-        uses: actions/cache@v6
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: deps/
           key: deps-nui-${{ hashFiles('tests/busted_helper.lua') }}
@@ -57,7 +57,7 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Install luacheck
         run: |
@@ -72,10 +72,10 @@ jobs:
     name: Format check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Install stylua
-        uses: JohnnyMorganz/stylua-action@v5
+        uses: JohnnyMorganz/stylua-action@76fd70c03e6340ceaf673366712db9b20560b402 # v5.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
@@ -85,10 +85,10 @@ jobs:
     name: Type check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Install Neovim
-        uses: rhysd/action-setup-vim@v1
+        uses: rhysd/action-setup-vim@febef33995d6649302e9d88dda81e071b68f16a7 # v1.6.1
         with:
           neovim: true
           version: stable
@@ -108,7 +108,7 @@ jobs:
     name: Build rock
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Install LuaRocks
         run: |
