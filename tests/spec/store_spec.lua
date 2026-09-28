@@ -233,6 +233,84 @@ describe("meow.review.store", function()
 
     -- ── auto_gitignore ────────────────────────────────────────────────────────
 
+    -- ── unreadable store (BUG-0110, REQ-0200) ──────────────────────────────────
+
+    describe("load() of a store it can't read", function()
+        local tmpdir, path
+
+        local function write(content)
+            vim.fn.mkdir(tmpdir .. "/.cache/meow-review", "p")
+            local f = io.open(path, "w")
+            if not f then
+                error("cannot open " .. path)
+            end
+            f:write(content)
+            f:close()
+        end
+
+        local function read()
+            local f = io.open(path, "r")
+            if not f then
+                error("cannot open " .. path)
+            end
+            local content = f:read("*a")
+            f:close()
+            return content
+        end
+
+        local function real_store()
+            package.loaded["meow.review.store"] = nil
+            package.loaded["meow.review.config.internal"] = nil
+            vim.g.meow_review = { auto_gitignore = false }
+            return require("meow.review.store")
+        end
+
+        before_each(function()
+            tmpdir = vim.fn.tempname()
+            path = tmpdir .. "/.cache/meow-review/annotations.json"
+            vim.notify = function() end
+        end)
+
+        after_each(function()
+            vim.fn.delete(tmpdir, "rf")
+        end)
+
+        it("doesn't overwrite a store with an unknown version on the next change", function()
+            local original = '{"version": 2, "annotations": [{"id": "keep-me"}]}'
+            write(original)
+            local s = real_store()
+            s.load(tmpdir)
+            s.add({ file = "x.lua", lnum = 1, type = "NOTE", text = "new" })
+            assert.equal(original, read())
+        end)
+
+        it("doesn't overwrite a store that isn't valid JSON on the next change", function()
+            local original = "{ not json"
+            write(original)
+            local s = real_store()
+            s.load(tmpdir)
+            s.add({ file = "x.lua", lnum = 1, type = "NOTE", text = "new" })
+            assert.equal(original, read())
+        end)
+
+        it("doesn't crash or overwrite when annotations isn't a list", function()
+            local original = '{"version": 1, "annotations": "oops"}'
+            write(original)
+            local s = real_store()
+            s.load(tmpdir)
+            s.add({ file = "x.lua", lnum = 1, type = "NOTE", text = "new" })
+            assert.equal(original, read())
+        end)
+
+        it("saves again once the store loads cleanly", function()
+            write('{"version": 1, "annotations": []}')
+            local s = real_store()
+            s.load(tmpdir)
+            s.add({ file = "x.lua", lnum = 1, type = "NOTE", text = "new" })
+            assert.truthy(read():find('"text":"new"', 1, true))
+        end)
+    end)
+
     describe("auto_gitignore", function()
         local tmpdir
 
