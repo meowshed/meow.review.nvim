@@ -35,4 +35,8 @@ Enters at implement, because it violates REQ-0200. Major; it can't be reproduced
 
 ## Closed by
 
-Not closed.
+Closed by TSK-0110 at commit `380e32e`: saves write a temporary file and rename it over the store only after the write succeeds. The reproduction lives as the regression test "keeps the old file when a write fails partway (BUG-0270)" in `tests/spec/store_spec.lua`, seen failing before the fix and passing after it.
+
+## Tasks
+
+- [x] T-001 TSK-0110 Write the store atomically so a failed save keeps the old file

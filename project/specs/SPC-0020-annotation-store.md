@@ -91,6 +91,6 @@ shown or exported.
 
 - When encoding fails or the file can't be opened, the error is reported and
   the file is left as it was (from lua/meow/review/store.lua, high).
-- Opening the file truncates it, and the write itself isn't checked, so a
-  write that fails after the open leaves the file empty or partial and reports
-  nothing (from lua/meow/review/store.lua, high).
+- A save writes `<store>.tmp` beside the file and renames it over the file
+  only after the write and close succeed, so a save that fails partway keeps
+  the old file and reports the failure (BUG-0270; lua/meow/review/store.lua).
