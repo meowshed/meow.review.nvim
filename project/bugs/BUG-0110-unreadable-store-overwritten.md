@@ -35,4 +35,8 @@ Enters at implement, because it violates REQ-0200. Critical, because a file from
 
 ## Closed by
 
-Not closed.
+Closed by TSK-0100 at commit `10b188b`: a store file `load()` couldn't read is never overwritten; saves refuse and name the file until it loads cleanly. The reproduction lives as the regression tests "load() of a store it can't read" in `tests/spec/store_spec.lua`, seen failing before the fix and passing after it.
+
+## Tasks
+
+- [x] T-001 TSK-0100 Refuse to overwrite a store file the plugin couldn't read
