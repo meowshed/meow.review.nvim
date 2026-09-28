@@ -643,15 +643,17 @@ function M.resolve_all_comments()
     )
 end
 
---- Export all annotations and then clear the store on success.
---- If the export fails (exporter not registered, no annotations, etc.) the store
---- is left intact.
+--- Export all annotations and then clear the store once the export has
+--- succeeded. If the export fails, is cancelled or writes nothing, the store is
+--- left intact (REQ-0301); an exporter that waits for input clears only after it
+--- reports success.
 ---@param name string|nil Exporter name, or nil to use the configured default.
 function M.export_and_clear(name)
-    local success = exp().export(name)
-    if success then
-        store().clear()
-    end
+    exp().export(name, nil, nil, function(ok)
+        if ok then
+            store().clear()
+        end
+    end)
 end
 
 --- Export only the annotations for the current buffer's file.

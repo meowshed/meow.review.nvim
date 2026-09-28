@@ -395,27 +395,42 @@ describe("meow.review.init", function()
     -- ── export_and_clear / export_current_file ────────────────────────────────
 
     describe("export_and_clear()", function()
-        it("clears store after successful export", function()
-            stub_store.add({ file = "a.lua", lnum = 1, end_lnum = 1, type = "ISSUE", text = "x" })
-            -- Make the export stub return true (success)
-            package.loaded["meow.review.export"].export = function()
-                return true
-            end
+        local function with_export(fn)
+            package.loaded["meow.review.export"].export = fn
             package.loaded["meow.review.init"] = nil
             m = require("meow.review.init")
+        end
+
+        it("clears store after successful export", function()
+            stub_store.add({ file = "a.lua", lnum = 1, end_lnum = 1, type = "ISSUE", text = "x" })
+            with_export(function(_, _, _, on_done)
+                on_done(true)
+                return true
+            end)
             m.export_and_clear()
             assert.equal(0, stub_store.count())
         end)
 
         it("does NOT clear store when export fails", function()
             stub_store.add({ file = "a.lua", lnum = 1, end_lnum = 1, type = "ISSUE", text = "x" })
-            -- Make the export stub return false (failure)
-            package.loaded["meow.review.export"].export = function()
+            with_export(function(_, _, _, on_done)
+                on_done(false)
                 return false
-            end
-            package.loaded["meow.review.init"] = nil
-            m = require("meow.review.init")
+            end)
             m.export_and_clear()
+            assert.equal(1, stub_store.count())
+        end)
+
+        it("does NOT clear store while a deferred export is still waiting (BUG-0090)", function()
+            stub_store.add({ file = "a.lua", lnum = 1, end_lnum = 1, type = "ISSUE", text = "x" })
+            local finish
+            with_export(function(_, _, _, on_done)
+                finish = on_done
+                return "deferred"
+            end)
+            m.export_and_clear()
+            assert.equal(1, stub_store.count())
+            finish(false)
             assert.equal(1, stub_store.count())
         end)
     end)

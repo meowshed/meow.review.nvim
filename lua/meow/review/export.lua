@@ -87,8 +87,8 @@ end
 local function format_json(annotations)
     local ok, encoded = pcall(vim.json.encode, { annotations = annotations, exported_at = os.time() })
     if not ok then
-        vim.notify("MeowReview: JSON encode failed: " .. tostring(encoded), vim.log.levels.ERROR)
-        return "{}"
+        -- Raise, so export() counts it as a failure and export_and_clear keeps the store.
+        error("JSON encode failed: " .. tostring(encoded), 0)
     end
     return encoded
 end
@@ -330,8 +330,8 @@ local function write_to_file(markdown, root, filename)
     utils.ensure_parent_dirs(path)
     local f = io.open(path, "w")
     if not f then
-        vim.notify("MeowReview: Cannot write " .. path, vim.log.levels.ERROR)
-        return
+        -- Raise, so export() counts it as a failure and export_and_clear keeps the store.
+        error("cannot write " .. path, 0)
     end
     f:write(markdown)
     f:close()
@@ -348,18 +348,27 @@ local function export_to_file(markdown, root)
 end
 
 --- Built-in: prompt for a filename then write to the project root.
+--- Returns `M.DEFERRED` and reports the outcome through {done} once the prompt
+--- is answered, because the write happens after this function returns.
 ---@param markdown string
 ---@param root string
-local function export_to_file_prompt(markdown, root)
+---@param done fun(ok: boolean)
+local function export_to_file_prompt(markdown, root, done)
     local ok, cfg = pcall(require, "meow.review.config.internal")
     local default = ok and cfg.get().export_filename or ".review.md"
     vim.ui.input({ prompt = "Export filename: ", default = default }, function(input)
         if not input or input == "" then
             vim.notify("MeowReview: Export cancelled.", vim.log.levels.INFO)
+            done(false)
             return
         end
-        write_to_file(markdown, root, input)
+        local wrote, err = pcall(write_to_file, markdown, root, input)
+        if not wrote then
+            vim.notify("MeowReview: Exporter 'file_prompt' failed: " .. tostring(err), vim.log.levels.ERROR)
+        end
+        done(wrote)
     end)
+    return M.DEFERRED
 end
 
 --- Built-in: copy the Markdown to the system clipboard (+ register).
@@ -372,6 +381,11 @@ end
 
 -- ── Dispatch ──────────────────────────────────────────────────────────────────
 
+--- Returned by an exporter that finishes after it returns, such as one that
+--- waits for input; it must then call the `done` function it was given exactly
+--- once, with true on success.
+M.DEFERRED = "deferred"
+
 --- Prepare the Markdown from the store and call one named exporter.
 --- When {name} is nil, uses the `default_exporter` from config ("clipboard" by default).
 --- When {formatter_name} is nil, uses the `default_formatter` from config ("markdown" by default).
@@ -380,8 +394,20 @@ end
 ---@param name string|nil Exporter name, or nil to use the configured default.
 ---@param formatter_name string|nil Formatter name, or nil to use the configured default.
 ---@param filter? { file?: string } Optional filter. `file` restricts to a single relative file path.
----@return boolean success True when export was dispatched without error.
-function M.export(name, formatter_name, filter)
+---@param on_done? fun(ok: boolean) Called exactly once with the outcome, when the export has finished.
+---@return boolean|string result True or false once finished, or `M.DEFERRED` while an exporter waits.
+function M.export(name, formatter_name, filter, on_done)
+    local reported = false
+    local function finish(ok)
+        if not reported then
+            reported = true
+            if on_done then
+                on_done(ok)
+            end
+        end
+        return ok
+    end
+
     local ok_cfg, cfg_mod = pcall(require, "meow.review.config.internal")
     local cfg = ok_cfg and cfg_mod.get() or {}
 
@@ -395,13 +421,13 @@ function M.export(name, formatter_name, filter)
     local fn = exporters[name]
     if not fn then
         vim.notify("MeowReview: No exporter registered: " .. name, vim.log.levels.WARN)
-        return false
+        return finish(false)
     end
 
     local fmt_fn = formatters[formatter_name]
     if not fmt_fn then
         vim.notify("MeowReview: No formatter registered: " .. formatter_name, vim.log.levels.WARN)
-        return false
+        return finish(false)
     end
 
     local store = require("meow.review.store")
@@ -421,18 +447,28 @@ function M.export(name, formatter_name, filter)
 
     if #sorted == 0 then
         vim.notify("MeowReview: No annotations.", vim.log.levels.INFO)
-        return false
+        return finish(false)
     end
 
-    local output = fmt_fn(sorted)
+    local fmt_ok, output = pcall(fmt_fn, sorted)
+    if not fmt_ok then
+        vim.notify(
+            "MeowReview: Formatter '" .. formatter_name .. "' failed: " .. tostring(output),
+            vim.log.levels.ERROR
+        )
+        return finish(false)
+    end
     local root = store.current_root()
 
-    local ok, err = pcall(fn, output, root)
+    local ok, result = pcall(fn, output, root, finish)
     if not ok then
-        vim.notify("MeowReview: Exporter '" .. name .. "' failed: " .. tostring(err), vim.log.levels.ERROR)
-        return false
+        vim.notify("MeowReview: Exporter '" .. name .. "' failed: " .. tostring(result), vim.log.levels.ERROR)
+        return finish(false)
     end
-    return true
+    if result == M.DEFERRED then
+        return M.DEFERRED
+    end
+    return finish(true)
 end
 
 --- Register the built-in exporters and formatters based on configuration.

@@ -449,6 +449,12 @@ the rendered string (from the active formatter) and the project root path.
 
 	require("meow.review").register_exporter("my_exporter", my_exporter)
 <
+An exporter reports failure by raising an error; returning normally counts as
+success. An exporter that finishes later, for example after asking for input,
+returns `require("meow.review.export").DEFERRED` and calls the function it gets
+as its third argument once, with `true` on success. |meow.review.export_and_clear()|
+clears the store only after that success.
+
 Disable a built-in exporter via config:
 >
 	require("meow.review").setup({

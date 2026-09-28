@@ -288,6 +288,89 @@ describe("meow.review.export", function()
         end)
     end)
 
+    -- ── export() reports failure and completion (BUG-0090, REQ-0301) ──────────
+
+    describe("export() success reporting", function()
+        local done_calls
+
+        local function record_done(ok)
+            table.insert(done_calls, ok)
+        end
+
+        before_each(function()
+            done_calls = {}
+            vim.notify = function() end
+            package.loaded["meow.review.store"] = {
+                sorted = function()
+                    return {
+                        { file = "a.lua", lnum = 1, end_lnum = 1, type = "ISSUE", text = "x", timestamp = 0 },
+                    }
+                end,
+                current_root = function()
+                    return "/tmp/meow-review-export-spec"
+                end,
+            }
+            export.setup_builtins({ disabled_exporters = {} })
+        end)
+
+        after_each(function()
+            package.loaded["meow.review.store"] = nil
+        end)
+
+        it("reports failure when the file exporter can't open its path", function()
+            vim.g.meow_review = { export_filename = "/nonexistent-dir-meow/sub/review.md" }
+            package.loaded["meow.review.config.internal"] = nil
+            local ok = export.export("file", "markdown", nil, record_done)
+            assert.is_false(ok)
+            assert.same({ false }, done_calls)
+        end)
+
+        it("reports failure when a formatter raises an error", function()
+            export.register_formatter("broken", function()
+                error("boom")
+            end)
+            local ok = export.export("clipboard", "broken", nil, record_done)
+            assert.is_false(ok)
+            assert.same({ false }, done_calls)
+        end)
+
+        it("reports failure when the json formatter can't encode", function()
+            package.loaded["meow.review.store"].sorted = function()
+                return { { file = "a.lua", lnum = 1, type = "ISSUE", text = "x", bad = function() end } }
+            end
+            local ok = export.export("clipboard", "json", nil, record_done)
+            assert.is_false(ok)
+            assert.same({ false }, done_calls)
+        end)
+
+        it("file_prompt reports failure when the prompt is cancelled", function()
+            vim.ui.input = function(_, cb)
+                cb(nil)
+            end
+            export.export("file_prompt", "markdown", nil, record_done)
+            assert.same({ false }, done_calls)
+        end)
+
+        it("file_prompt defers until the prompt is answered", function()
+            local answer
+            vim.ui.input = function(_, cb)
+                answer = cb
+            end
+            local result = export.export("file_prompt", "markdown", nil, record_done)
+            assert.equal(export.DEFERRED, result)
+            assert.same({}, done_calls)
+            answer(nil)
+            assert.same({ false }, done_calls)
+        end)
+
+        it("reports success once for an exporter that returns normally", function()
+            export.register("spy_ok", function() end)
+            local ok = export.export("spy_ok", "markdown", nil, record_done)
+            assert.is_true(ok)
+            assert.same({ true }, done_calls)
+        end)
+    end)
+
     -- ── avante / codecompanion auto-registration ──────────────────────────────
 
     describe("setup_builtins() avante/codecompanion auto-registration", function()
