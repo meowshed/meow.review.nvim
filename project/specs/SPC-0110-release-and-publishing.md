@@ -2,7 +2,7 @@
 id: SPC-0110
 artifact: spec
 status: live
-revised: 2026-09-27
+revised: 2026-09-28
 checked-at:
 states: [REQ-0600, REQ-0601, REQ-0602, REQ-0603, REQ-0604, REQ-0605]
 ---
@@ -33,8 +33,8 @@ page.
   builds exercise the template that gets published (ADR-0010).
 - Release commits add no versioned rockspec; the three existing ones stay as
   the record of what was published (ADR-0010).
-- `.github/dependabot.yml` watches the `github-actions` ecosystem, so the
-  publishing action's pin is proposed for update (ADR-0010).
+- Renovate proposes moving the publishing action's pin, as it does for every
+  action the workflows use (ADR-0020).
 
 ## Behaviour
 
@@ -73,10 +73,3 @@ page.
   luarocks.org, whether to reuse the version by moving its tag or to cut a new
   patch is open; neither REQ-0605 nor ADR-0010 settles it, and moving a tag
   has a cost for anyone who fetched it.
-
-
-- This document states the behaviour ADR-0010 decides, before the
-  implementation exists. Until the epic for ADR-0010 is done, the repository
-  has no `release.yml`, no scm rockspec and no `.github/dependabot.yml`,
-  `make build` still builds the newest versioned rockspec, and releases are
-  published by hand from versioned rockspecs that lack `plugin/` (BUG-0310).

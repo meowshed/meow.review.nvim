@@ -4,7 +4,7 @@ The record of meow.review.nvim: its vision, specifications, epics and defects. R
 
 <!-- meow-flow index -->
 
-11 specifications in all: 11 live.
+12 specifications in all: 12 live.
 
 | Identifier | What it concluded | Status |
 | --- | --- | --- |
@@ -19,7 +19,9 @@ The record of meow.review.nvim: its vision, specifications, epics and defects. R
 | [SPC-0090](specs/SPC-0090-commands-and-navigation.md) | Commands, mappings, navigation and status | live |
 | [SPC-0100](specs/SPC-0100-health-check.md) | Health check | live |
 | [SPC-0110](specs/SPC-0110-release-and-publishing.md) | Release and publishing | live |
+| [SPC-0120](specs/SPC-0120-dependency-updates.md) | Dependency updates | live |
 <!-- /meow-flow index -->
+
 
 
 
