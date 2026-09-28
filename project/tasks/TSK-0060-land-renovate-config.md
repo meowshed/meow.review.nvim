@@ -34,7 +34,29 @@ None.
 
 ## Evidence
 
-Not yet.
+Collected on 2026-09-28 at the squash commit `df197cb`, merged through pull
+request #10.
+
+- Criterion 1 (REQ-0700): pull request #10 changed only `renovate.json`
+  (+18) and `.github/dependabot.yml` (-9). On `main`, `renovate.json` holds
+  `config:recommended`, `group:recommended` and
+  `helpers:pinGitHubActionDigestsToSemver`, timezone `Europe/Amsterdam`,
+  schedule "before 6am on Monday", `prCreation: not-pending`, `rebaseWhen:
+  conflicted`, the label `dependencies`, and the `github-actions` rule with
+  `pinDigests: true`, group "github actions" and type `ci`; `ls .github`
+  lists only `workflows`; `gh pr list --author app/dependabot --state open`
+  listed none.
+- The config was validated with `npx --yes --package renovate@latest --
+  renovate-config-validator renovate.json` (Renovate 44.115.13): "Config
+  validated successfully against 1 file(s)".
+- Criterion 2: `gh pr view 10 --json mergeCommit` names `df197cb`, "ci:
+  replace Dependabot with Renovate (#10)", which `meow-scm check-message`
+  passes.
+- Criterion 3: Renovate created the Dependency Dashboard, issue #11, at
+  2026-09-28T00:25:21Z; it lists the pinning update for TSK-0070 under
+  "Pending Status Checks".
+- Criterion 4 (REQ-0700, REQ-0703): waiting on the maintainer's confirmation.
+- All checks passed on pull request #10 before the merge.
 
 ## Left alone
 
