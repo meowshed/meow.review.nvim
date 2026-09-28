@@ -2,7 +2,7 @@
 id: SPC-0020
 artifact: spec
 status: live
-revised: 2026-09-27
+revised: 2026-09-28
 checked-at:
 states: [REQ-0200, REQ-0201, REQ-0202]
 ---
@@ -81,16 +81,14 @@ shown or exported.
 
 - A missing store file loads as no annotations (from
   lua/meow/review/store.lua, high).
-- A file that isn't valid JSON, or has a version other than 1, loads as no
-  annotations with a warning. The next change then rewrites the file with the
-  in-memory list, and the old contents are lost with no backup (from
-  lua/meow/review/store.lua, high).
+- A file that isn't valid JSON, has a version other than 1, or has an
+  `annotations` value that isn't a list loads as no annotations with a
+  warning, and every later save refuses to overwrite it and says so, until a
+  load reads it cleanly (BUG-0110; lua/meow/review/store.lua).
 - An entry missing `id`, `file`, `lnum`, `type` or `text` is skipped on load,
   and the next change removes it from the file (from
   lua/meow/review/store.lua, high).
-- An `annotations` value that isn't a list raises a Lua error on load, which
-  nothing catches (from lua/meow/review/store.lua, high: reproduced by the
-  reviewer in headless Neovim).
+
 - When encoding fails or the file can't be opened, the error is reported and
   the file is left as it was (from lua/meow/review/store.lua, high).
 - Opening the file truncates it, and the write itself isn't checked, so a
