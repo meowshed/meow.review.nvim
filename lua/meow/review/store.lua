@@ -35,6 +35,8 @@ local M = {}
 local state = {
     annotations = {},
     project_root = nil,
+    -- Path of a store file load() couldn't read; save() won't overwrite it (BUG-0110).
+    unreadable_path = nil,
 }
 
 -- Seed the PRNG once at module load time.
@@ -264,6 +266,16 @@ function M.save()
 
     local root = M.current_root()
     local path = resolve_store_path(root)
+    if state.unreadable_path == path then
+        vim.notify(
+            "MeowReview: Not saving, because "
+                .. path
+                .. " couldn't be read and would be overwritten. "
+                .. "Fix or move it, then run :MeowReview reload.",
+            vim.log.levels.ERROR
+        )
+        return
+    end
     ensure_parent_dirs(path)
 
     local data = {
@@ -298,6 +310,7 @@ function M.load(root)
     state.project_root = root
 
     local path = resolve_store_path(root)
+    state.unreadable_path = nil
     local f = io.open(path, "r")
     if not f then
         state.annotations = {}
@@ -308,15 +321,20 @@ function M.load(root)
     f:close()
 
     local ok, data = pcall(vim.json.decode, raw)
-    if not ok or type(data) ~= "table" then
-        vim.notify("MeowReview: Cannot parse " .. path, vim.log.levels.WARN)
+    if not ok or type(data) ~= "table" or (data.annotations ~= nil and type(data.annotations) ~= "table") then
+        vim.notify("MeowReview: Cannot parse " .. path .. "; changes won't be saved over it.", vim.log.levels.WARN)
         state.annotations = {}
+        state.unreadable_path = path
         return
     end
 
     if data.version ~= VERSION then
-        vim.notify("MeowReview: Unsupported version in " .. path, vim.log.levels.WARN)
+        vim.notify(
+            "MeowReview: Unsupported version in " .. path .. "; changes won't be saved over it.",
+            vim.log.levels.WARN
+        )
         state.annotations = {}
+        state.unreadable_path = path
         return
     end
 

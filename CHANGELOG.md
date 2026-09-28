@@ -11,7 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `export_and_clear` no longer clears the store when nothing was exported:
   when the `file_prompt` prompt is cancelled, when `file` or `file_prompt`
-  can't write, or when a formatter fails (BUG-0090).
+    can't write, or when a formatter fails (BUG-0090).
+- A store file that can't be read, because it isn't valid JSON or has an
+  unknown version, is no longer overwritten by the next change; the plugin
+  refuses to save over it and says so (BUG-0110).
 
 ### Added
 
