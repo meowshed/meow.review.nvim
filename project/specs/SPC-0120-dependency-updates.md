@@ -40,8 +40,9 @@ repository settings outside it (REQ-0700).
   each new release of an action as a pull request at the first run after it,
   within seven days of the release (REQ-0702).
 - Minor and patch updates to actions are grouped into one pull request
-  titled "github actions" with commit type `ci`; a major release gets a pull
-  request of its own (ADR-0020).
+  titled "github actions" with commit type `ci`, so there is one to review a
+  week, and a major release gets a pull request of its own, because it can
+  break the workflow (ADR-0020).
 - The only package files Renovate updates here are `ci.yml` and
   `release.yml`; the rockspec's `nui.nvim` dependency is unpinned and no tool
   updates rockspecs (RES-0020).
@@ -52,13 +53,22 @@ repository settings outside it (REQ-0700).
   Mend portal shows (ADR-0020).
 - With "Require config file" off and no `renovate.json`, Renovate would act
   on its defaults (ADR-0020).
-- If the Mend app stops running, no update is proposed and the Dependency
-  Dashboard issue stops changing; the maintainer sees that before a release
-  (ADR-0020).
+- An update held by Renovate's rate limits or by pending checks waits for
+  the next Monday run and can exceed seven days; it shows in the Dependency
+  Dashboard's rate-limited or awaiting-schedule list (ADR-0020).
+- If the Mend app stops running, no update is proposed; a quiet dashboard
+  can't tell that from a week without releases, so the maintainer checks the
+  last run time in the Mend portal's job log before a release (ADR-0020).
 - An update pull request left unmerged keeps the old pin, and the workflows
   miss that release's fixes until it is merged (ADR-0020).
 
 ## Open review findings
+
+- Rejected: the reviewer asked to hold this document back from `live` until
+  the epic lands. The record's layout allows only `live` for a
+  specification, so it states the decided behaviour and the note below says
+  what isn't true yet.
+
 
 - This document states what ADR-0020 decides, before its epic lands: until
   then the repository still has `.github/dependabot.yml`, no `renovate.json`,

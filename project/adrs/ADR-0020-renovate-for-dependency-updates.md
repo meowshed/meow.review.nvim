@@ -22,7 +22,12 @@ configuration lives in `renovate.json` at the repository root:
   not-pending`, `rebaseWhen: conflicted` and the label `dependencies`, the
   settings meowg1k already uses;
 - one package rule for the `github-actions` manager: `pinDigests: true`,
-  grouped as "github actions", with semantic commit type `ci`.
+  grouped as "github actions", with semantic commit type `ci`;
+- the preset `helpers:pinGitHubActionDigestsToSemver`, added by amendment on
+  2026-09-28 with the maintainer's approval, because `pinDigests` alone keeps
+  the tag it replaces as the comment, so `actions/checkout@v7` would become
+  `@<sha> # v7`, not the `# vX.Y.Z` REQ-0701 requires (Renovate's helper
+  presets page, read 2026-09-28).
 
 `.github/dependabot.yml` is deleted, so Dependabot proposes no version
 updates (REQ-0700). In the Mend portal the repository has Silent mode off
