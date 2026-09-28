@@ -2,7 +2,7 @@
 
 <!-- meow-flow index -->
 
-25 requirements in all: 21 approved, 4 draft.
+25 requirements in all: 25 approved.
 
 | Identifier | What it requires | Status |
 | --- | --- | --- |
@@ -27,8 +27,8 @@
 | [REQ-0603](REQ-0603-version-matches-tag.md) | The version part of the rock published to luarocks.org for a tag `vX.Y.Z` MUST be `X.Y.Z`. | approved |
 | [REQ-0604](REQ-0604-api-key-as-secret.md) | The LuaRocks API key MUST appear in the repository, including the publishing workflow, only as a reference to a CI secret. | approved |
 | [REQ-0605](REQ-0605-no-republish.md) | When any rockspec revision of the version `X.Y.Z` being published already exists on luarocks.org, the publishing workflow run MUST fail and leave the published files unchanged. | approved |
-| [REQ-0700](REQ-0700-one-update-tool.md) | Exactly one tool MUST propose dependency version updates for this repository. | draft |
-| [REQ-0701](REQ-0701-actions-pinned-to-commits.md) | Every action from another repository that the workflows in `.github/workflows/` use MUST be referenced by a full commit SHA, with its version in a `# vX.Y.Z` comment beside it. | draft |
-| [REQ-0702](REQ-0702-action-updates-weekly.md) | When a newer release of an action the workflows in `.github/workflows/` use is published, an update to it MUST be proposed as a pull request within seven days. | draft |
-| [REQ-0703](REQ-0703-same-tool-as-other-repos.md) | The tool that proposes dependency updates MUST be the one installed across the maintainer's GitHub accounts. | draft |
+| [REQ-0700](REQ-0700-one-update-tool.md) | Exactly one tool MUST propose dependency version updates for this repository. | approved |
+| [REQ-0701](REQ-0701-actions-pinned-to-commits.md) | Every action from another repository that the workflows in `.github/workflows/` use MUST be referenced by a full commit SHA, with its version in a `# vX.Y.Z` comment beside it. | approved |
+| [REQ-0702](REQ-0702-action-updates-weekly.md) | When a newer release of an action the workflows in `.github/workflows/` use is published, an update to it MUST be proposed as a pull request within seven days. | approved |
+| [REQ-0703](REQ-0703-same-tool-as-other-repos.md) | The tool that proposes dependency updates MUST be the one installed across the maintainer's GitHub accounts. | approved |
 <!-- /meow-flow index -->

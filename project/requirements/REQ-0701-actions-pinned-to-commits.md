@@ -3,7 +3,7 @@ id: REQ-0701
 artifact: requirement
 topic: updates
 class: non-functional
-status: draft
+status: approved
 revised: 2026-09-28
 elaborates: RES-0020
 verification: static
