@@ -37,4 +37,13 @@ Enters at implement, because it violates REQ-0301. Critical, because it destroys
 
 ## Closed by
 
-Not closed.
+Closed by TSK-0090 at commit `7a74e9d`: `export_and_clear` now clears the
+store only after the exporter reports success. The reproduction lives as
+regression tests in `tests/spec/export_spec.lua` ("export() success
+reporting") and `tests/spec/init_spec.lua` ("does NOT clear store while a
+deferred export is still waiting (BUG-0090)"), seen failing before the fix
+and passing after it.
+
+## Tasks
+
+- [x] T-001 TSK-0090 Clear the store only after an export that wrote something, in `lua/meow/review/export.lua` and `init.lua`
