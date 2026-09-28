@@ -55,7 +55,9 @@ request #10.
 - Criterion 3: Renovate created the Dependency Dashboard, issue #11, at
   2026-09-28T00:25:21Z; it lists the pinning update for TSK-0070 under
   "Pending Status Checks".
-- Criterion 4 (REQ-0700, REQ-0703): waiting on the maintainer's confirmation.
+- Criterion 4 (REQ-0700, REQ-0703): on 2026-09-28 the maintainer confirmed
+  that the Mend portal has Silent mode off and "Require config file" on for
+  this repository, and that Renovate is the tool across their accounts.
 - All checks passed on pull request #10 before the merge.
 
 ## Left alone
