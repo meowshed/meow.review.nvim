@@ -40,7 +40,7 @@ jobs:
       # Pinned to a commit, because a tag can be moved and a commit can't
       # (ADR-0010); Renovate proposes moving the pin (ADR-0020).
       - name: Publish the rock
-        uses: lumen-oss/luarocks-tag-release@4aa641e8e4befe0617fa3d7db40dbda832ddd27b # v7.3.0
+        uses: lumen-oss/luarocks-tag-release@5107e5292b3a47afdec7e62e2e1407ac227f4f8d # v9.4.0
         env:
           LUAROCKS_API_KEY: ${{ secrets.LUAROCKS_API_KEY }}
         with:
