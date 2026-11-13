@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- `<Plug>(MeowReviewAdd)` in select mode annotates the selected lines, as it
+  does in visual mode, instead of the cursor line.
+
 ## [0.3.0] - 2026-11-13
 
 ### Fixed

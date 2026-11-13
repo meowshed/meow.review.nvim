@@ -208,9 +208,10 @@ function M.add_comment(is_visual)
     -- A mapping's callback runs while visual mode is still active, and the '<
     -- and '> marks are only set when it ends, so they still hold the previous
     -- selection. Read the live selection from "v" and ".", then leave visual
-    -- mode so the modal opens from normal mode.
+    -- mode so the modal opens from normal mode. Select mode ("s", "S", CTRL-S)
+    -- reaches here through the same "v" mapping and is handled the same way.
     local mode = vim.fn.mode()
-    if mode == "v" or mode == "V" or mode == "\22" then
+    if mode:match("^[vV\22sS\19]$") then
         v_start, v_end = vim.fn.line("v"), vim.fn.line(".")
         if v_start > v_end then
             v_start, v_end = v_end, v_start
