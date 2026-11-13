@@ -74,6 +74,7 @@ Written by hand from `paw index defect`, because `paw index --write` writes ever
 | [BUG-0290](bugs/BUG-0290-context-capture-no-requirement.md) | Context capture rests on no requirement | approved |
 | [BUG-0300](bugs/BUG-0300-vision-no-direction.md) | The vision doesn't say where the plugin is going | approved |
 | [BUG-0310](bugs/BUG-0310-rock-missing-plugin-dir.md) | The published rock doesn't install `plugin/meow-review.lua`, so rocks.nvim users likely get no commands or mappings | approved |
+| [BUG-0320](bugs/BUG-0320-visual-add-reads-stale-marks.md) | `<Plug>(MeowReviewAdd)` in visual mode annotates the previous selection, not the current one | approved |
 
 ## Epics
 
