@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A save that fails partway, for example on a full disk, keeps the old store
   file whole and reports the failure; the store is written beside the file
   and renamed over it (BUG-0270).
+- `<Plug>(MeowReviewAdd)` in visual mode annotates the selected lines. It
+  used to read the `'<` and `'>` marks before visual mode ended, so it
+  annotated the previous selection or the cursor line (BUG-0320).
 
 ### Added
 

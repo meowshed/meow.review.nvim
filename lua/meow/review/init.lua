@@ -201,13 +201,24 @@ end
 
 --- Add a new review annotation at the cursor position or current visual selection.
 --- Opens the add-comment modal; Tab cycles ISSUE → SUGGESTION → NOTE.
----@param is_visual? boolean Pass true when called from a visual-mode mapping.
+---@param is_visual? boolean Pass true when visual mode has ended, to read the '< and '> marks.
 function M.add_comment(is_visual)
     local v_start, v_end
 
-    -- When called from a visual mapping the mode has already reverted to normal,
-    -- but the '< and '> marks still hold the last visual selection on this buffer.
-    if is_visual then
+    -- A mapping's callback runs while visual mode is still active, and the '<
+    -- and '> marks are only set when it ends, so they still hold the previous
+    -- selection. Read the live selection from "v" and ".", then leave visual
+    -- mode so the modal opens from normal mode.
+    local mode = vim.fn.mode()
+    if mode == "v" or mode == "V" or mode == "\22" then
+        v_start, v_end = vim.fn.line("v"), vim.fn.line(".")
+        if v_start > v_end then
+            v_start, v_end = v_end, v_start
+        end
+        vim.api.nvim_feedkeys(vim.keycode("<Esc>"), "nx", false)
+    elseif is_visual then
+        -- Called after visual mode ended, for example from :'<,'>MeowReview
+        -- add or a mapping that leaves visual mode first: the marks are current.
         v_start = vim.fn.line("'<")
         v_end = vim.fn.line("'>")
         -- Marks are 0 when never set (fresh buffer) — treat as single-line

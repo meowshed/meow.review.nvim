@@ -261,8 +261,8 @@ vim.keymap.set({ "n", "v" }, "<Plug>(MeowReviewAdd)", function()
     if not check_dependencies() then
         return
     end
-    -- In visual mode the mapping fires after mode reverts to normal;
-    -- pass is_visual=true so add_comment() reads the '< '> marks.
+    -- The callback runs while visual mode is still active; add_comment() reads
+    -- the live selection and leaves visual mode itself.
     local mode = vim.fn.mode()
     local from_visual = mode == "v" or mode == "V" or mode == "\22"
     require("meow.review").add_comment(from_visual)

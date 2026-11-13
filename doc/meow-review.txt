@@ -572,9 +572,10 @@ review.setup({opts})
 
 						*meow.review.add_comment()*
 review.add_comment([{is_visual}])
-	Open the add-comment modal at the cursor position. Pass `true` for
-	{is_visual} when called from a visual-mode mapping to use the `'<` / `'>`
-	marks as the annotation range.
+	Open the add-comment modal at the cursor position. Called while visual
+	mode is active, it uses the selected lines as the annotation range and
+	leaves visual mode. Pass `true` for {is_visual} when visual mode has
+	already ended, to use the `'<` / `'>` marks as the range.
 
 						*meow.review.edit_comment()*
 review.edit_comment()

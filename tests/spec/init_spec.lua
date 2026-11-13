@@ -435,6 +435,54 @@ describe("meow.review.init", function()
         end)
     end)
 
+    describe("add_comment()", function()
+        local opened
+
+        before_each(function()
+            opened = nil
+            package.loaded["meow.review.ui"].open_add_modal = function(opts)
+                opened = opts
+            end
+            package.loaded["meow.review.init"] = nil
+            m = require("meow.review.init")
+            vim.cmd("enew!")
+            vim.api.nvim_buf_set_lines(0, 0, -1, false, { "one", "two", "three", "four", "five" })
+            vim.keymap.set("x", "<F2>", function()
+                m.add_comment(true)
+            end)
+        end)
+
+        after_each(function()
+            pcall(vim.keymap.del, "x", "<F2>")
+        end)
+
+        it("reads the selection while visual mode is still active (BUG-0320)", function()
+            -- A mapping's callback runs before visual mode ends, so the '< and
+            -- '> marks still hold the selection before this one.
+            vim.api.nvim_buf_set_mark(0, "<", 1, 0, {})
+            vim.api.nvim_buf_set_mark(0, ">", 1, 0, {})
+            vim.api.nvim_feedkeys(vim.keycode("2GVjj<F2>"), "x", false)
+            assert.is_not_nil(opened)
+            assert.equal(2, opened.lnum)
+            assert.equal(4, opened.end_lnum)
+            assert.equal("n", vim.fn.mode())
+        end)
+
+        it("orders the lines of a selection made upwards", function()
+            vim.api.nvim_feedkeys(vim.keycode("4Gvkk<F2>"), "x", false)
+            assert.equal(2, opened.lnum)
+            assert.equal(4, opened.end_lnum)
+        end)
+
+        it("reads the marks when visual mode has already ended", function()
+            vim.api.nvim_buf_set_mark(0, "<", 3, 0, {})
+            vim.api.nvim_buf_set_mark(0, ">", 5, 0, {})
+            m.add_comment(true)
+            assert.equal(3, opened.lnum)
+            assert.equal(5, opened.end_lnum)
+        end)
+    end)
+
     describe("export_current_file()", function()
         it("calls export with file filter for current file", function()
             local export_args = {}
